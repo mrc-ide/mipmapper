@@ -3,7 +3,6 @@
 # The following commands ensure that package dependencies are listed in the
 # NAMESPACE file.
 
-#' @useDynLib mipmapper
 NULL
 
 #------------------------------------------------
@@ -19,7 +18,7 @@ NULL
 #' @examples
 #' # TODO
 
-hello <- function() {
+hello <- function(x = 5) {
   print("Hello, world!")
 }
 
