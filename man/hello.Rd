@@ -4,7 +4,7 @@
 \alias{hello}
 \title{Dummy function}
 \usage{
-hello()
+hello(x = 5)
 }
 \arguments{
 \item{x}{TODO}
