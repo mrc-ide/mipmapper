@@ -10,7 +10,7 @@ test_that("`filter_misc()` works", {
 
 test_that("`melt_mip_data()` works", {
   
-  data <- data.frame(
+  dat <- data.frame(
     Sample_ID = c(rep("a", 3), rep("b", 2)), 
     Chrom = c("chr1","chr1", "chr2", "chr1", "chr1"), 
     Pos = c(100, 200, 50, 100, 200), 
@@ -19,7 +19,7 @@ test_that("`melt_mip_data()` works", {
   )
   
   expect_equal(
-    melt_mip_data(data),
+    melt_mip_data(dat = dat),
     data.frame("Sample_ID" = c("a","b"),
                "chr1_100" = c(1, 1),
                "chr1_200" = c(0.0, 0.7),

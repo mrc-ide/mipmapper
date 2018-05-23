@@ -86,7 +86,7 @@ filter_coverage <- function(dat, min_coverage = 2) {
 #'   The read depth for each locus, denoted by `chr<x>_<pos>`, is given for 
 #'   each sample. An NA is given at loci where there is no read depth.
 #'
-#' @param data MIP data. The data must have the following variables:
+#' @param dat MIP data. The data must have the following variables:
 #'   \itemize{
 #'       \item Chrom : The chromosome number of the MIP read
 #'       \item Pos : The chromosome position of the MIP read
@@ -95,10 +95,11 @@ filter_coverage <- function(dat, min_coverage = 2) {
 #'       \item Barcode_Count : The total barocdes recovered
 #'       }
 #'
+#' @return Invisibly returns the melted data frame
 #' @export
 #' @examples
 #' 
-#' data <- data.frame(
+#' dat <- data.frame(
 #' "Sample_ID" = c(rep("a", 3), rep("b", 2)),
 #' "Chrom" = c(1, 1, 2, 1, 1),
 #' "Pos" = c(100, 200, 50, 100, 200),
@@ -106,29 +107,29 @@ filter_coverage <- function(dat, min_coverage = 2) {
 #' "Barcode_Count" = c(47, 0, 40, 52, 70)
 #' )
 #' 
-#' melt_mip_data(data)
+#' melt_mip_data(dat = dat)
 #' 
 
-melt_mip_data <- function(data) {
+melt_mip_data <- function(dat) {
   
   # make unique identifier for the genome
-  data$ID <- paste0(data$Chrom, "_", data$Pos)
+  dat$ID <- paste0(dat$Chrom, "_", dat$Pos)
   
   # these are all the genome potential variables
   depth_related <- c("Chrom", "Pos", "Ref", "Alt", 
                      "Coverage", "Barcode_Count", "ID")
-  meta <- which(!names(data) %in% depth_related)
+  meta <- which(!names(dat) %in% depth_related)
   
   
-  df <- data.frame(matrix(ncol = length(unique(data$ID)) + length(meta), nrow = 0))
-  colnames(df) <- c(names(data)[meta],unique(data$ID))
+  df <- dat.frame(matrix(ncol = length(unique(dat$ID)) + length(meta), nrow = 0))
+  colnames(df) <- c(names(dat)[meta],unique(dat$ID))
   
-  s <- unique(data$Sample_ID)
+  s <- unique(dat$Sample_ID)
   slist <- list(); length(slist) <- length(s)+1
   slist[[1]] <- df
   
   for(i in 1:length(s)){
-    d <- data[data$Sample_ID==s[i],]  
+    d <- dat[dat$Sample_ID==s[i],]  
     df <- data.frame(matrix(ncol = length(d$Barcode_Count),
                             nrow=1, 
                             data = d$Barcode_Count / d$Coverage))
@@ -138,7 +139,7 @@ melt_mip_data <- function(data) {
   }
   
   res <- data.table::rbindlist(slist, fill=TRUE) %>% as.data.frame()
-  return(res)
+  invisible(res)
   
 }
 

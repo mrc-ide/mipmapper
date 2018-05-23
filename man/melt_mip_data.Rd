@@ -4,10 +4,10 @@
 \alias{melt_mip_data}
 \title{Melt mip data}
 \usage{
-melt_mip_data(data)
+melt_mip_data(dat)
 }
 \arguments{
-\item{data}{MIP data. The data must have the following variables:
+\item{dat}{MIP data. The data must have the following variables:
 \itemize{
     \item Chrom : The chromosome number of the MIP read
     \item Pos : The chromosome position of the MIP read
@@ -16,6 +16,9 @@ melt_mip_data(data)
     \item Barcode_Count : The total barocdes recovered
     }}
 }
+\value{
+Invisibly returns the melted data frame
+}
 \description{
 Melt the mip data into a data frame with one column per locus. 
   The read depth for each locus, denoted by `chr<x>_<pos>`, is given for 
@@ -23,14 +26,14 @@ Melt the mip data into a data frame with one column per locus.
 }
 \examples{
 
-data <- data.frame(
+dat <- data.frame(
 "Sample_ID" = c(rep("a", 3), rep("b", 2)),
 "Chrom" = c(1, 1, 2, 1, 1),
 "Pos" = c(100, 200, 50, 100, 200),
-"Coverage" = c(47, 95, 100, 52, 74),
+"Coverage" = c(47, 95, 100, 52, 100),
 "Barcode_Count" = c(47, 0, 40, 52, 70)
 )
 
-melt_mip_data(data)
+melt_mip_data(dat = dat)
 
 }
