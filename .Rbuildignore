@@ -5,3 +5,4 @@ R_ignore/
 ^\.travis\.yml$
 ^appveyor\.yml$
 ^codecov\.yml$
+^scripts
