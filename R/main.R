@@ -121,7 +121,7 @@ melt_mip_data <- function(dat) {
   meta <- which(!names(dat) %in% depth_related)
   
   
-  df <- dat.frame(matrix(ncol = length(unique(dat$ID)) + length(meta), nrow = 0))
+  df <- data.frame(matrix(ncol = length(unique(dat$ID)) + length(meta), nrow = 0))
   colnames(df) <- c(names(dat)[meta],unique(dat$ID))
   
   s <- unique(dat$Sample_ID)
@@ -134,7 +134,7 @@ melt_mip_data <- function(dat) {
                             nrow=1, 
                             data = d$Barcode_Count / d$Coverage))
     names(df) <- d$ID
-    df <- cbind(d[1, meta, drop = FALSE], df)
+    df <- cbind(d[1, ..meta, drop = FALSE], df)
     slist[[i+1]] <- df
   }
   
