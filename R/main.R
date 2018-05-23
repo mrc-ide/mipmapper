@@ -102,7 +102,7 @@ filter_coverage <- function(dat, min_coverage = 2) {
 #' "Sample_ID" = c(rep("a", 3), rep("b", 2)),
 #' "Chrom" = c(1, 1, 2, 1, 1),
 #' "Pos" = c(100, 200, 50, 100, 200),
-#' "Coverage" = c(47, 95, 100, 52, 74),
+#' "Coverage" = c(47, 95, 100, 52, 100),
 #' "Barcode_Count" = c(47, 0, 40, 52, 70)
 #' )
 #' 
