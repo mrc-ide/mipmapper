@@ -5,7 +5,7 @@
 #' @name %>%
 #' @rdname pipe
 #' @keywords internal
-#' @importFrom magrittr %>%
+#' @importFrom dplyr %>%
 #' @export
 #' @usage lhs \%>\% rhs
 NULL
