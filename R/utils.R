@@ -92,7 +92,7 @@ dummy_data <- function() {
 #'       }
 #' @importFrom stats runif
 #' @examples
-#' dat <- rdhs:::generate_dummy_data()
+#' dat <- mipmapper:::generate_dummy_data()
 
 generate_dummy_data <- function(n = 1000, countries = 4,
                                 studies = 3, samples = 50,

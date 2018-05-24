@@ -44,5 +44,5 @@ Creates a dummy data set, with more control over how the data
   set variables are created
 }
 \examples{
-dat <- rdhs:::generate_dummy_data()
+dat <- mipmapper:::generate_dummy_data()
 }
