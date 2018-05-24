@@ -25,7 +25,10 @@
 #'
 #' @export
 #' @examples
-#' # TODO
+#' dat <- dummy_data()
+#' dat2 <- filter_misc(dat)
+#' dim(dat2)[1] < dim(dat)[1]
+
 
 filter_misc <- function(dat, 
                         SNP_only = TRUE, 
@@ -68,14 +71,22 @@ filter_misc <- function(dat,
 #'
 #' @description Filter data based on coverage
 #'
-#' @details TODO
+#' @details The MIP dataset is filtered to remove all loci that have less than 
+#'   the minimum required coverage. 
 #'
-#' @param dat TODO
-#' @param min_coverage TODO
+#' @param dat MIP data. The data must have the following variables:
+#'   \itemize{
+#'       \item Coverage : The total read coverage as numerics
+#'       }
+#' @param min_coverage Numeric for the minimum required coverage. Default = 2
 #'
 #' @export
 #' @examples
-#' # TODO
+#' dat <- dummy_data()
+#' dat <- filter_misc(dat)
+#' dat2 <- filter_coverage(dat, min_coverage = 5)
+#' dim(dat2)[1] < dim(dat)[1]
+
 
 filter_coverage <- function(dat, min_coverage = 2) {
   
