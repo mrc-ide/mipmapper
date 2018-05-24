@@ -50,6 +50,8 @@ test_that("assert_bounded works", {
 
   expect_error(assert_bounded(-5, left = -5, inclusive_left = FALSE))
   expect_error(assert_bounded(5, right = 5, inclusive_right = FALSE))
+  expect_error(assert_bounded(4, left = 5, inclusive_left = TRUE))
+  expect_error(assert_bounded(6, right = 5, inclusive_right = TRUE))
   expect_error(assert_bounded("foo"))
 })
 

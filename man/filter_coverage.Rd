@@ -7,16 +7,23 @@
 filter_coverage(dat, min_coverage = 2)
 }
 \arguments{
-\item{dat}{TODO}
+\item{dat}{MIP data. The data must have the following variables:
+\itemize{
+    \item Coverage : The total read coverage as numerics
+    }}
 
-\item{min_coverage}{TODO}
+\item{min_coverage}{Numeric for the minimum required coverage. Default = 2}
 }
 \description{
 Filter data based on coverage
 }
 \details{
-TODO
+The MIP dataset is filtered to remove all loci that have less than 
+  the minimum required coverage.
 }
 \examples{
-# TODO
+dat <- dummy_data()
+dat <- filter_misc(dat)
+dat2 <- filter_coverage(dat, min_coverage = 5)
+dim(dat2)[1] < dim(dat)[1]
 }

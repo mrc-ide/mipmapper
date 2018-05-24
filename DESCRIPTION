@@ -1,18 +1,29 @@
 Package: mipmapper
 Type: Package
-Title: What the Package Does (Title Case)
+Title: Filtering and analysis of MIP panel genetic datasets
 Version: 0.1.0
-Author: Who wrote it
-Maintainer: The package maintainer <yourself@somewhere.net>
-Description: More about what it does (maybe more than one line)
-    Use four spaces when indenting paragraphs within the Description.
+Authors@R: c(
+  person("Bob", "Verity", role=c("aut","cre"),
+  email = "r.verity@imperial.ac.uk"),
+  person("OJ", "Watson", role="aut"))
+Maintainer: Bob Verity <r.verity@imperial.ac.uk>
+URL: https://mrc-ide.github.io/mipmapper/
+BugReports: https://github.com/mrc-ide/mipmapper/issues
+Description: Molecular inversion probes (MIPs) are a tool for genomic
+    partitioning, which result in datasets of SNP genotypes. mipmapper
+    is a package to help assist in filtering the raw output from these
+    sequencing efforts, and conducting population genetic analyses.
 License: MIT + file LICENSE
 Encoding: UTF-8
-LazyData: true
+LazyData: TRUE
 Imports:
     data.table,
-    dplyr
+    dplyr,
+    plotly,
+    RColorBrewer
 RoxygenNote: 6.0.1
 Suggests:
     covr,
+    knitr,
     testthat
+VignetteBuilder: knitr

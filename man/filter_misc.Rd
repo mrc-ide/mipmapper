@@ -7,20 +7,35 @@
 filter_misc(dat, SNP_only = TRUE, group_Alt = TRUE, drop_irregular = TRUE)
 }
 \arguments{
-\item{dat}{TODO}
+\item{dat}{MIP data. The data must have the following variables:
+\itemize{
+    \item Ref : Character for reference allele nucleotide
+    \item Alt : Character for alternative allele nucelotide
+    \item Coverage : The total read coverage as numerics
+    \item Barcode_Count : The total barocdes recovered
+    }}
 
-\item{SNP_only}{TODO}
+\item{SNP_only}{Boolean detailing if subsetting should remove all cases
+where the ALT allele is longer than 1 nucleotide. Default = `TRUE`}
 
-\item{group_Alt}{TODO}
+\item{group_Alt}{Boolean detailing whether all ALT alleles should be 
+grouped together. Default = `TRUE`}
 
-\item{drop_irregular}{TODO}
+\item{drop_irregular}{Boolean detailing whether irregular data should
+be removed. This includes non integer barcode counts and any instances 
+where there is less coverage than barcode counts. Default = `TRUE`}
 }
 \description{
 Filter out miscellaneous unwanted values from data
 }
 \details{
-TODO
+`filter_misc` takes a raw dataset and applies a series of filters
+  that enable the removal of non-standarad ALT allele calls and long ALT
+  calls. It also enables the filtering of irregular data, such as data
+  with non integer counts of barcodes or more barcode counts than coverage.
 }
 \examples{
-# TODO
+dat <- dummy_data()
+dat2 <- filter_misc(dat)
+dim(dat2)[1] < dim(dat)[1]
 }

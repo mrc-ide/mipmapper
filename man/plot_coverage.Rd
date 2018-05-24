@@ -9,28 +9,48 @@ plot_coverage(dat, type = "o", pch = 20, ylim = c(0, 100),
   log = "x", ...)
 }
 \arguments{
-\item{dat}{TODO}
+\item{dat}{MIP data. The data must have the following variables:
+\itemize{
+    \item Coverage : The total read coverage as numerics
+    }}
 
-\item{type}{TODO}
+\item{type}{1-character string giving the type of plot desired.  The
+    following values are possible, for details, see \code{\link{plot}}:
+    \code{"p"} for points, \code{"l"} for lines,
+    \code{"b"} for both points and lines,
+    \code{"c"} for empty points joined by lines,
+    \code{"o"} for overplotted points and lines,
+    \code{"s"} and \code{"S"} for stair steps and
+    \code{"h"} for histogram-like vertical lines.  Finally,
+    \code{"n"} does not produce any points or lines.}
 
-\item{pch}{TODO}
+\item{pch}{Either an integer or a single character specifying a symbol to be 
+used as the default in plotting points. See \code{\link[graphics]{points}} 
+for possible values and their interpretation. Note that only integers and 
+single-character strings can be set as a graphics parameter 
+(and not NA nor NULL).}
 
-\item{ylim}{TODO}
+\item{ylim}{the y limits of the plot.}
 
-\item{xlab}{TODO}
+\item{xlab}{a label for the x axis, defaults to a description of \code{x}.}
 
-\item{ylab}{TODO}
+\item{ylab}{a label for the y axis, defaults to a description of \code{y}.}
 
-\item{log}{TODO}
+\item{log}{a character string which contains \code{"x"} if the x axis
+    is to be logarithmic, \code{"y"} if the y axis is to be logarithmic
+    and \code{"xy"} or \code{"yx"} if both axes are to be logarithmic.}
 
-\item{...}{other arguments to \code{plot()}}
+\item{...}{other arguments to \code{plot}}
 }
 \description{
 Plot coverage gaps in data
 }
 \details{
-TODO
+Plot a line graph showing the percentage of sites that have more 
+  than a given number of unique reads (coverage).
 }
 \examples{
-# TODO
+dat <- dummy_data()
+dat2 <- filter_misc(dat)
+plot_coverage(dat2)
 }

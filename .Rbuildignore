@@ -5,3 +5,8 @@ R_ignore/
 ^\.travis\.yml$
 ^appveyor\.yml$
 ^codecov\.yml$
+^scripts/
+^TODO.md
+^pkgdown_link_formats\.R$
+^README\.Rmd$
+^docs$
