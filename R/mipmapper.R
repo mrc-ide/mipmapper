@@ -12,5 +12,5 @@
 #' @import graphics
 "_PACKAGE"
 
-globalVariables(c("Alt", "Barcode_Count", "Coverage", 
+globalVariables(c("Alt", "Barcode_Count", "Coverage",
                   "group_by", "plot", "summarize"))

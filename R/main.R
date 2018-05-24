@@ -30,37 +30,37 @@
 #' dim(dat2)[1] < dim(dat)[1]
 
 
-filter_misc <- function(dat, 
-                        SNP_only = TRUE, 
-                        group_Alt = TRUE, 
+filter_misc <- function(dat,
+                        SNP_only = TRUE,
+                        group_Alt = TRUE,
                         drop_irregular = TRUE) {
-  
+
   # TODO - check format of dat
   # Worth a discussion of the above - best to be some check_dat() where we
   # find and standardise names
-  
+
   # subset to single nucleotide polymorphisms
   if (SNP_only) {
-    dat <- subset(dat, nchar(dat$Ref)==1 & nchar(dat$Alt)==1)
+    dat <- subset(dat, nchar(dat$Ref) == 1 & nchar(dat$Alt) == 1)
   }
-  
+
   # group all ALT alleles together
   if (group_Alt) {
     dat2 <- dat %>%
       group_by(.dots = setdiff(names(dat), c("Alt", "Barcode_Count"))) %>%
-      summarize(Alt = paste(Alt, collapse = ","), 
+      summarize(Alt = paste(Alt, collapse = ","),
                 Barcode_Count = sum(Barcode_Count))
     dat2 <- as.data.frame(dat2)
-    dat <- dat2[,names(dat)]
+    dat <- dat2[, names(dat)]
   }
-  
+
   # filter barcode counts. Drop non-int values and those where Barcode_Count
   # exceeds Coverage
   if (drop_irregular) {
     dat <- subset(dat, is.int_vector(Barcode_Count) & is.int_vector(Coverage))
     dat <- subset(dat, Barcode_Count <= Coverage)
   }
-  
+
   # return invisibly
   invisible(dat)
 }
@@ -89,13 +89,13 @@ filter_misc <- function(dat,
 
 
 filter_coverage <- function(dat, min_coverage = 2) {
-  
+
   # checks on inputs
   assert_pos_int(min_coverage)
-  
+
   # drop low coverage barcodes
   dat <- subset(dat, Coverage >= min_coverage)
-  
+
   # return invisibly
   invisible(dat)
 }
@@ -134,39 +134,39 @@ filter_coverage <- function(dat, min_coverage = 2) {
 #' 
 
 melt_mip_data <- function(dat) {
-  
+
   # make unique identifier for the genome
   dat$ID <- paste0(dat$Chrom, "_", dat$Pos)
-  
+
   # these are all the genome potential variables
-  depth_related <- c("Chrom", "Pos", "Ref", "Alt", 
+  depth_related <- c("Chrom", "Pos", "Ref", "Alt",
                      "Coverage", "Barcode_Count", "ID")
   meta <- which(!names(dat) %in% depth_related)
-  
+
   # the total width of our final dataset
   cols <- length(unique(dat$ID)) + length(meta)
-  
+
   df <- data.frame(matrix(ncol = cols, nrow = 0))
-  colnames(df) <- c(names(dat)[meta],unique(dat$ID))
-  
+  colnames(df) <- c(names(dat)[meta], unique(dat$ID))
+
   s <- unique(dat$Sample_ID)
   slist <- list()
   length(slist) <- length(s) + 1
   slist[[1]] <- df
-  
-  for(i in seq_len(length(s))){
-    d <- dat[dat$Sample_ID==s[i], ]  
+
+  for (i in seq_len(length(s))){
+    d <- dat[dat$Sample_ID == s[i], ]
     df <- data.frame(matrix(ncol = length(d$Barcode_Count),
-                            nrow=1, 
+                            nrow = 1,
                             data = d$Barcode_Count / d$Coverage))
     names(df) <- d$ID
     df <- cbind(d[1, meta, drop = FALSE], df)
-    slist[[i+1]] <- df
+    slist[[i + 1]] <- df
   }
-  
-  res <- rbindlist(slist, fill=TRUE) %>% as.data.frame()
+
+  res <- rbindlist(slist, fill = TRUE) %>% as.data.frame()
   invisible(res)
-  
+
 }
 
 
@@ -199,23 +199,23 @@ melt_mip_data <- function(dat) {
 #' 
 
 impute_mip_data <- function(dat, FUN = mean, ...) {
-  
+
   # get which columns refer to loci and which refer to variable names
-  datNames <- names(dat)[which(!grepl("^chr.*", names(dat)))]
-  locusNames <- setdiff(names(dat), datNames)
-  
-  ## TODO: Discuss at some point standard variable handling, where PCs will be
+  dat_names <- names(dat)[which(!grepl("^chr.*", names(dat)))]
+  locus_names <- setdiff(names(dat), dat_names)
+
+  # TODO: Discuss at some point standard variable handling, where PCs will be
   # subset out positive controls
-  # dat <- subset(dat, Study!="PC")
-  
+
+
   # impute NAs
-  dat_mat <- as.matrix(dat[, locusNames])
+  dat_mat <- as.matrix(dat[, locus_names])
   locus_impute <- apply(dat_mat, 2, FUN, na.rm = TRUE, ...)
   locus_impute <- outer(rep(1, nrow(dat_mat)), locus_impute)
   dat_mat[is.na(dat_mat)] <- locus_impute[is.na(dat_mat)]
-  dat <- cbind(dat[, datNames], dat_mat)
-  
+  dat <- cbind(dat[, dat_names], dat_mat)
+
   # return invisbly
   invisible(dat)
-  
+
 }

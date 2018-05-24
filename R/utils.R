@@ -37,11 +37,11 @@ NULL
 #' dat <- dummy_data()
 
 dummy_data <- function() {
-  
-  df <- data.frame(
+
+    df <- data.frame(
     "Year" = rep(2011, 11),
-    "Country" = c(rep("mipmappia",6), rep(NA, 5)),
-    "Study" = c(rep("main",6), rep("PC", 5)),
+    "Country" = c(rep("mipmappia", 6), rep(NA, 5)),
+    "Study" = c(rep("main", 6), rep("PC", 5)),
     "DHS_Cluster" = c(rep(1, 6), rep(NA, 5)),
     "Lat" = c(rep(26.432513, 6), rep(NA, 5)),
     "Long" = c(rep(-46.536719, 6), rep(NA, 5)),
@@ -54,7 +54,7 @@ dummy_data <- function() {
     "Barcode_Count" = c(0, 0, 600, 400, 0, 120, 0, NA, 341, 0, 100),
     stringsAsFactors = FALSE
   )
-  
+
   invisible(df)
-  
+
 }

@@ -26,17 +26,20 @@
 #' dat2 <- filter_misc(dat)
 #' plot_coverage(dat2)
 
-plot_coverage <- function(dat, type = "o", pch = 20, ylim = c(0,100), 
-                          xlab = "Coverage (unique reads)", 
-                          ylab = "data completeness (%)", 
-                          log = "x", 
+plot_coverage <- function(dat, type = "o", pch = 20, ylim = c(0, 100),
+                          xlab = "Coverage (unique reads)",
+                          ylab = "data completeness (%)",
+                          log = "x",
                           ...) {
 
   # get dropout at different levels of coverage filtering
-  x <- c(1:10, seq(20,200,10))
-  y <- mapply(function(x) {mean(dat$Coverage >= x)}, x) * 100
+  x <- c(1:10, seq(20, 200, 10))
+  cover_func <- function(x) {
+    mean(dat$Coverage >= x)
+  }
+  y <- mapply(cover_func, x) * 100
 
-  plot(x, y, type = type, log = log, pch = pch, ylim = ylim, 
+  plot(x, y, type = type, log = log, pch = pch, ylim = ylim,
        xlab = xlab, ylab = ylab, ...)
 
   # return invisibly
