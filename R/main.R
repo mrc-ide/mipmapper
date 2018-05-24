@@ -1,25 +1,27 @@
-
-#------------------------------------------------
-# The following commands ensure that package dependencies are listed in the
-# NAMESPACE file.
-
-#' @importFrom data.table fread
-#' @import dplyr
-#' @import graphics
-NULL
-
-
 #  filter_misc -----------------------------------------------------------------
 #' @title Filter data
 #'
 #' @description Filter out miscellaneous unwanted values from data
 #'
-#' @details TODO
+#' @details `filter_misc` takes a raw dataset and applies a series of filters
+#'   that enable the removal of non-standarad ALT allele calls and long ALT
+#'   calls. It also enables the filtering of irregular data, such as data
+#'   with non integer counts of barcodes or more barcode counts than coverage.
 #'
-#' @param dat TODO
-#' @param SNP_only TODO
-#' @param group_Alt TODO
-#' @param drop_irregular TODO
+#' @param dat MIP data. The data must have the following variables:
+#'   \itemize{
+#'       \item Ref : Character for reference allele nucleotide
+#'       \item Alt : Character for alternative allele nucelotide
+#'       \item Coverage : The total read coverage as numerics
+#'       \item Barcode_Count : The total barocdes recovered
+#'       }
+#' @param SNP_only Boolean detailing if subsetting should remove all cases
+#'   where the ALT allele is longer than 1 nucleotide. Default = `TRUE`
+#' @param group_Alt Boolean detailing whether all ALT alleles should be 
+#'   grouped together. Default = `TRUE`
+#' @param drop_irregular Boolean detailing whether irregular data should
+#'   be removed. This includes non integer barcode counts and any instances 
+#'   where there is less coverage than barcode counts. Default = `TRUE`
 #'
 #' @export
 #' @examples
@@ -31,6 +33,8 @@ filter_misc <- function(dat,
                         drop_irregular = TRUE) {
   
   # TODO - check format of dat
+  # Worth a discussion of the above - best to be some check_dat() where we
+  # find and standardise names
   
   # subset to single nucleotide polymorphisms
   if (SNP_only) {
@@ -103,6 +107,7 @@ filter_coverage <- function(dat, min_coverage = 2) {
 #'       }
 #'
 #' @return Invisibly returns the melted data frame
+#' @importFrom data.table rbindlist
 #' @export
 #' @examples
 #' 
@@ -138,7 +143,7 @@ melt_mip_data <- function(dat) {
   length(slist) <- length(s) + 1
   slist[[1]] <- df
   
-  for(i in 1:length(s)){
+  for(i in seq_len(length(s))){
     d <- dat[dat$Sample_ID==s[i], ]  
     df <- data.frame(matrix(ncol = length(d$Barcode_Count),
                             nrow=1, 
@@ -148,7 +153,7 @@ melt_mip_data <- function(dat) {
     slist[[i+1]] <- df
   }
   
-  res <- data.table::rbindlist(slist, fill=TRUE) %>% as.data.frame()
+  res <- rbindlist(slist, fill=TRUE) %>% as.data.frame()
   invisible(res)
   
 }
