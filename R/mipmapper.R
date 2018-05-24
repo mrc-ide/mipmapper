@@ -8,8 +8,6 @@
 #' @docType package
 #' @name mipmapper
 #'
-#' @import dplyr
-#' @import graphics
 "_PACKAGE"
 
 globalVariables(c("Alt", "Barcode_Count", "Coverage",

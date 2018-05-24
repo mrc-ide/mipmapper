@@ -12,6 +12,14 @@ partitioning, which result in datasets of SNP genotypes. mipmapper
 is a package to help assist in filtering the raw output from these
 sequencing efforts, and conducting population genetic analyses.
 }
+\seealso{
+Useful links:
+\itemize{
+  \item \url{https://mrc-ide.github.io/mipmapper/}
+  \item Report bugs at \url{https://github.com/mrc-ide/mipmapper/issues}
+}
+
+}
 \author{
 \strong{Maintainer}: Bob Verity \email{r.verity@imperial.ac.uk}
 

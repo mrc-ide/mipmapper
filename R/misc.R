@@ -12,7 +12,10 @@
 #' @export
 #' 
 #' @examples
-#' # TODO
+#' \dontrun{
+#' file <- "mip_files/dataset.csv"
+#' dat <- fast_read(file)
+#' }
 
 fast_read <- function(file) {
   fread(file, data.table = FALSE)

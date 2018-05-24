@@ -1,11 +1,21 @@
 context("Main")
 
-test_that("`filter_coverage()` works", {
+context("`filter_coverage()`")
 
+test_that("`filter_coverage()` works", {
+  dat <- dummy_data()
+  dat <- filter_misc(dat)
+  dat2 <- filter_coverage(dat, min_coverage = 5)
+  expect_true(dim(dat2)[1] < dim(dat)[1])
 })
 
-test_that("`filter_misc()` works", {
 
+context("`filter_misc()`")
+
+test_that("`filter_misc()` works", {
+  dat <- dummy_data()
+  dat2 <- filter_misc(dat)
+  expect_true(dim(dat2)[1] < dim(dat)[1])
 })
 
 test_that("`melt_mip_data()` works", {

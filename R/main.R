@@ -22,7 +22,8 @@
 #' @param drop_irregular Boolean detailing whether irregular data should
 #'   be removed. This includes non integer barcode counts and any instances 
 #'   where there is less coverage than barcode counts. Default = `TRUE`
-#'
+#'   
+#' @importFrom dplyr group_by summarize
 #' @export
 #' @examples
 #' dat <- dummy_data()
