@@ -6,3 +6,4 @@ R_ignore/
 ^appveyor\.yml$
 ^codecov\.yml$
 ^scripts
+^TODO.md
