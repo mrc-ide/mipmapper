@@ -24,6 +24,12 @@ plot_coverage(dat, type = "o", pch = 20, ylim = c(0, 100),
     \code{"h"} for histogram-like vertical lines.  Finally,
     \code{"n"} does not produce any points or lines.}
 
+\item{pch}{Either an integer or a single character specifying a symbol to be 
+used as the default in plotting points. See \code{\link[graphics]{points}} 
+for possible values and their interpretation. Note that only integers and 
+single-character strings can be set as a graphics parameter 
+(and not NA nor NULL).}
+
 \item{ylim}{the y limits of the plot.}
 
 \item{xlab}{a label for the x axis, defaults to a description of \code{x}.}
@@ -40,8 +46,11 @@ plot_coverage(dat, type = "o", pch = 20, ylim = c(0, 100),
 Plot coverage gaps in data
 }
 \details{
-TODO
+Plot a line graph showing the percentage of sites that have more 
+  than a given number of unique reads (coverage).
 }
 \examples{
-# TODO
+dat <- dummy_data()
+dat2 <- filter_misc(dat)
+plot_coverage(dat2)
 }

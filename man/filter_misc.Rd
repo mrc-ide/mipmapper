@@ -35,5 +35,7 @@ Filter out miscellaneous unwanted values from data
   with non integer counts of barcodes or more barcode counts than coverage.
 }
 \examples{
-# TODO
+dat <- dummy_data()
+dat2 <- filter_misc(dat)
+dim(dat2)[1] < dim(dat)[1]
 }

@@ -22,7 +22,9 @@
 #' @inheritParams graphics::points
 #' @export
 #' @examples
-#' # TODO
+#' dat <- dummy_data()
+#' dat2 <- filter_misc(dat)
+#' plot_coverage(dat2)
 
 plot_coverage <- function(dat, type = "o", pch = 20, ylim = c(0,100), 
                           xlab = "Coverage (unique reads)", 
