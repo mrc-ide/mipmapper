@@ -6,9 +6,11 @@
 #'
 #' @details TODO
 #'
-#' @param file TODO
+#' @param file String to the path where your mip dataset is saved
 #'
+#' @importFrom data.table fread
 #' @export
+#' 
 #' @examples
 #' # TODO
 
@@ -19,7 +21,7 @@ fast_read <- function(file) {
 #------------------------------------------------
 # check if values can be coerced to integer
 # (not exported)
-
+#' @noRd
 is.int_vector <- function(x) {
   x == as.integer(x)
 }

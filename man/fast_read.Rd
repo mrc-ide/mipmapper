@@ -7,7 +7,7 @@
 fast_read(file)
 }
 \arguments{
-\item{file}{TODO}
+\item{file}{String to the path where your mip dataset is saved}
 }
 \description{
 Quickly load data as data.frame

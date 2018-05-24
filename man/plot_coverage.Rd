@@ -9,21 +9,32 @@ plot_coverage(dat, type = "o", pch = 20, ylim = c(0, 100),
   log = "x", ...)
 }
 \arguments{
-\item{dat}{TODO}
+\item{dat}{MIP data. The data must have the following variables:
+\itemize{
+    \item Coverage : The total read coverage as numerics
+    }}
 
-\item{type}{TODO}
+\item{type}{1-character string giving the type of plot desired.  The
+    following values are possible, for details, see \code{\link{plot}}:
+    \code{"p"} for points, \code{"l"} for lines,
+    \code{"b"} for both points and lines,
+    \code{"c"} for empty points joined by lines,
+    \code{"o"} for overplotted points and lines,
+    \code{"s"} and \code{"S"} for stair steps and
+    \code{"h"} for histogram-like vertical lines.  Finally,
+    \code{"n"} does not produce any points or lines.}
 
-\item{pch}{TODO}
+\item{ylim}{the y limits of the plot.}
 
-\item{ylim}{TODO}
+\item{xlab}{a label for the x axis, defaults to a description of \code{x}.}
 
-\item{xlab}{TODO}
+\item{ylab}{a label for the y axis, defaults to a description of \code{y}.}
 
-\item{ylab}{TODO}
+\item{log}{a character string which contains \code{"x"} if the x axis
+    is to be logarithmic, \code{"y"} if the y axis is to be logarithmic
+    and \code{"xy"} or \code{"yx"} if both axes are to be logarithmic.}
 
-\item{log}{TODO}
-
-\item{...}{other arguments to \code{plot()}}
+\item{...}{other arguments to \code{plot}}
 }
 \description{
 Plot coverage gaps in data
