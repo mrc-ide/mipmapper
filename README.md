@@ -48,7 +48,7 @@ Next we want to filter based on coverage, throwing away any loci that are below 
 plot_coverage(dat1)
 ```
 
-![](tools/tools/tools/README-plot_coverage-1.png)
+![](tools/README-plot_coverage-1.png)
 
 Choose a threshold that strikes a balance between data quantity and quality. Once you have chosen a threshold, apply the filtering as follows:
 
@@ -56,3 +56,45 @@ Choose a threshold that strikes a balance between data quantity and quality. Onc
 my_threshold <- 6
 dat3 <- filter_coverage(dat1, min_coverage = my_threshold)
 ```
+
+We can now use convert our filtered dataset into a wide format, where each row is an unique sample, with new columns for each locus. This can be achieved as follows:
+
+``` r
+dat4 <- melt_mip_data(dat3)
+```
+
+This can then be used to impute any missing values:
+
+``` r
+dat5 <- impute_mip_data(dat4)
+```
+
+The imputed data set can then be analysed using principal component analysis:
+
+``` r
+pca <- pca_mip_data(dat5)
+```
+
+We can view the variance explained by each compenet graphically using:
+
+``` r
+plot_pca_variance(pca)
+```
+
+![](tools/pca_var.png)
+
+And lastly we can plot the actual prinical component analysis, to see how it has clustered our data:
+
+``` r
+plot_pca(pca, num_components = 2, meta_var = "Country")
+```
+
+![](tools/pca_2var.png)
+
+We can control whether we want to visualise the first 2 or 3 components, with the `num_componenets` argument:
+
+``` r
+plot_pca(pca, num_components = 3, meta_var = "Country")
+```
+
+![](tools/pca_3var.png)

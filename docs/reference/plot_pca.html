@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Dummy data — dummy_data • mipmapper</title>
+<title>Plot PCA — plot_pca • mipmapper</title>
 
 <!-- jquery -->
 <script src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha384-nrOSfDHtoPMzJHjVTdCopGqIqeYETSXhZDFyniQ8ZHcVy08QesyHcnOUpMpqnmWq" crossorigin="anonymous"></script>
@@ -28,9 +28,10 @@
 
 
 
-<meta property="og:title" content="Dummy data — dummy_data" />
+<meta property="og:title" content="Plot PCA — plot_pca" />
 
-<meta property="og:description" content="Create a dummy data set" />
+<meta property="og:description" content="Plots either the first 2 or 3 principal components, with the
+  data points labelled accordng to chosen meta data in the mip data set." />
 <meta name="twitter:card" content="summary" />
 
 
@@ -89,53 +90,63 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Dummy data</h1>
+    <h1>Plot PCA</h1>
     
-    <div class="hidden name"><code>dummy_data.Rd</code></div>
+    <div class="hidden name"><code>plot_pca.Rd</code></div>
     </div>
 
     <div class="ref-description">
     
-    <p>Create a dummy data set</p>
+    <p>Plots either the first 2 or 3 principal components, with the
+  data points labelled accordng to chosen meta data in the mip data set.</p>
     
     </div>
 
-    <pre class="usage"><span class='fu'>dummy_data</span>()</pre>
-        
-    <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
-
-    <p>Invisibly returns a MIP dataset with the following variables:</p><ul>
-<li><p>"Year" Numerics of sample year collect</p></li>
-<li><p>"Country" String of country of sample collection</p></li>
-<li><p>"Study" String of study name</p></li>
-<li><p>"DHS_Cluster" Numeric of DHS cluster</p></li>
-<li><p>"Lat" Numeric for latitude</p></li>
-<li><p>"Long" Numeric for longitude</p></li>
-<li><p>"Sample_ID" String for unique sample ID</p></li>
-<li><p>"Chrom" Numeric for chromosome number</p></li>
-<li><p>"Pos" Numeric for chromosome position</p></li>
-<li><p>"Ref" Reference allele nucleotide</p></li>
-<li><p>"Alt" Alternative allele nucleotide</p></li>
-<li><p>"Coverage" Numeric for read coverage</p></li>
-<li><p>"Barcode_Count" Numeric for count of barcodes matched to Ref</p></li>
-</ul>
-
+    <pre class="usage"><span class='fu'>plot_pca</span>(<span class='no'>pca</span>, <span class='kw'>num_components</span> <span class='kw'>=</span> <span class='fl'>2</span>, <span class='kw'>meta_var</span> <span class='kw'>=</span> <span class='st'>"Country"</span>)</pre>
+    
+    <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
+    <table class="ref-arguments">
+    <colgroup><col class="name" /><col class="desc" /></colgroup>
+    <tr>
+      <th>pca</th>
+      <td><p>output of <code>pca_mip_data</code></p></td>
+    </tr>
+    <tr>
+      <th>num_components</th>
+      <td><p>numeric for number of components used. Default = 2</p></td>
+    </tr>
+    <tr>
+      <th>meta_var</th>
+      <td><p>character for the desired meta variable to be used for 
+labelling the scatterplot. Default = "Country".</p></td>
+    </tr>
+    </table>
     
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
-    <p>Fixed dummy data set. Mainly used for tests. For a more nuanced 
-  dummy data set creation see <code>generate_dummy_data</code>.</p>
+    <p>Using the output of <code>pca_mip_data</code> and a specified variable
+  within the mip data set, e.g the country of sample collection, a 
+  scatterplot of the data is produced. Either the first 2 or 3 components
+  can be used, as specified with `num_components`. The chosen `meta_var` 
+  must be a variable found within the mip data set (this is included as 
+  the last element in the object returned by <code>pca_mip_data</code>).</p>
     
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='no'>dat</span> <span class='kw'>&lt;-</span> <span class='fu'>dummy_data</span>()</div></pre>
+    <pre class="examples"><div class='input'><span class='no'>dat</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='dummy_data.html'>dummy_data</a></span>()
+<span class='no'>dat</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='filter_misc.html'>filter_misc</a></span>(<span class='kw'>dat</span> <span class='kw'>=</span> <span class='no'>dat</span>)
+<span class='no'>dat</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='filter_coverage.html'>filter_coverage</a></span>(<span class='kw'>dat</span> <span class='kw'>=</span> <span class='no'>dat</span>, <span class='kw'>min_coverage</span> <span class='kw'>=</span> <span class='fl'>2</span>)
+<span class='no'>dat</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='melt_mip_data.html'>melt_mip_data</a></span>(<span class='kw'>dat</span> <span class='kw'>=</span> <span class='no'>dat</span>)
+<span class='no'>dat</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='impute_mip_data.html'>impute_mip_data</a></span>(<span class='kw'>dat</span> <span class='kw'>=</span> <span class='no'>dat</span>)
+<span class='no'>pca</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='pca_mip_data.html'>pca_mip_data</a></span>(<span class='kw'>dat</span> <span class='kw'>=</span> <span class='no'>dat</span>)
+<span class='fu'>plot_pca</span>(<span class='no'>pca</span>, <span class='kw'>num_components</span> <span class='kw'>=</span> <span class='fl'>2</span>, <span class='kw'>meta_var</span> <span class='kw'>=</span> <span class='st'>"Country"</span>)
+<span class='fu'>plot_pca</span>(<span class='no'>pca</span>, <span class='kw'>num_components</span> <span class='kw'>=</span> <span class='fl'>3</span>, <span class='kw'>meta_var</span> <span class='kw'>=</span> <span class='st'>"Study"</span>)</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
     <ul class="nav nav-pills nav-stacked">
+      <li><a href="#arguments">Arguments</a></li>
       
-      <li><a href="#value">Value</a></li>
-
       <li><a href="#details">Details</a></li>
       
       <li><a href="#examples">Examples</a></li>

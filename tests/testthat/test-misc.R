@@ -21,8 +21,14 @@ test_that("`dummy_data()` works", {
 
   })
 
+test_that("`generate_dummy_data()` works", {
+
+  dat <- generate_dummy_data()
+  expect_equal(dim(dat), c(1000, 13))
+})
+
 test_that("fast_read works", {
-  
+
   dat <- dummy_data()
   write.csv(dat, "data.csv", row.names = FALSE)
   dat2 <- fast_read("data.csv")

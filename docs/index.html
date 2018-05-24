@@ -93,6 +93,21 @@ dat0 &lt;-<span class="st"> </span><span class="kw"><a href="reference/fast_read
 <p>Choose a threshold that strikes a balance between data quantity and quality. Once you have chosen a threshold, apply the filtering as follows:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">my_threshold &lt;-<span class="st"> </span><span class="dv">6</span>
 dat3 &lt;-<span class="st"> </span><span class="kw"><a href="reference/filter_coverage.html">filter_coverage</a></span>(dat1, <span class="dt">min_coverage =</span> my_threshold)</code></pre></div>
+<p>We can now use convert our filtered dataset into a wide format, where each row is an unique sample, with new columns for each locus. This can be achieved as follows:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">dat4 &lt;-<span class="st"> </span><span class="kw"><a href="reference/melt_mip_data.html">melt_mip_data</a></span>(dat3)</code></pre></div>
+<p>This can then be used to impute any missing values:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">dat5 &lt;-<span class="st"> </span><span class="kw"><a href="reference/impute_mip_data.html">impute_mip_data</a></span>(dat4)</code></pre></div>
+<p>The imputed data set can then be analysed using principal component analysis:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">pca &lt;-<span class="st"> </span><span class="kw"><a href="reference/pca_mip_data.html">pca_mip_data</a></span>(dat5)</code></pre></div>
+<p>We can view the variance explained by each compenet graphically using:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw"><a href="reference/plot_pca_variance.html">plot_pca_variance</a></span>(pca)</code></pre></div>
+<p><img src="tools/pca_var.png"> And lastly we can plot the actual prinical component analysis, to see how it has clustered our data:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw"><a href="reference/plot_pca.html">plot_pca</a></span>(pca, <span class="dt">num_components =</span> <span class="dv">2</span>, <span class="dt">meta_var =</span> <span class="st">"Country"</span>)</code></pre></div>
+<p><img src="tools/pca_2var.png"> We can control whether we want to visualise the first 2 or 3 components, with the <code>num_componenets</code> argument:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw"><a href="reference/plot_pca.html">plot_pca</a></span>(pca, <span class="dt">num_components =</span> <span class="dv">3</span>, <span class="dt">meta_var =</span> <span class="st">"Country"</span>)</code></pre></div>
+<div class="figure">
+<img src="tools/pca_3var.png">
+</div>
 </div>
 </div>
   </div>

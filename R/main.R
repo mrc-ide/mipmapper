@@ -138,6 +138,9 @@ melt_mip_data <- function(dat) {
 
   # make unique identifier for the genome
   dat$ID <- paste0(dat$Chrom, "_", dat$Pos)
+  if (!all(grepl("^chr", dat$Chrom))) {
+    dat$ID <- paste0("chr", dat$ID)
+  }
 
   # these are all the genome potential variables
   depth_related <- c("Chrom", "Pos", "Ref", "Alt",
