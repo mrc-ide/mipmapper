@@ -11,7 +11,7 @@ plot_pca(pca, num_components = 2, meta_var = "Country")
 
 \item{num_components}{numeric for number of components used. Default = 2}
 
-\item{meta_var}{character for the desired meta variable to be used for 
+\item{meta_var}{character for the desired meta variable to be used for
 labelling the scatterplot. Default = "Country".}
 }
 \description{
@@ -20,10 +20,10 @@ Plots either the first 2 or 3 principal components, with the
 }
 \details{
 Using the output of \code{pca_mip_data} and a specified variable
-  within the mip data set, e.g the country of sample collection, a 
+  within the mip data set, e.g the country of sample collection, a
   scatterplot of the data is produced. Either the first 2 or 3 components
-  can be used, as specified with `num_components`. The chosen `meta_var` 
-  must be a variable found within the mip data set (this is included as 
+  can be used, as specified with `num_components`. The chosen `meta_var`
+  must be a variable found within the mip data set (this is included as
   the last element in the object returned by \code{pca_mip_data}).
 }
 \examples{

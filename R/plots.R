@@ -1,20 +1,21 @@
+
 #  plot_coverage ---------------------------------------------------------------
 #' @title Plot coverage gaps in data
 #'
 #' @description Plot coverage gaps in data
 #'
-#' @details Plot a line graph showing the percentage of sites that have more 
-#'   than a given number of unique reads (coverage). 
+#' @details Plot a line graph showing the percentage of sites that have more
+#'   than a given number of unique reads (coverage).
 #'
 #' @param dat MIP data. The data must have the following variables:
 #'   \itemize{
 #'       \item Coverage : The total read coverage as numerics
 #'       }
 #' @param ... other arguments to \code{plot}
-#' @param pch Either an integer or a single character specifying a symbol to be 
-#'   used as the default in plotting points. See \code{\link[graphics]{points}} 
-#'   for possible values and their interpretation. Note that only integers and 
-#'   single-character strings can be set as a graphics parameter 
+#' @param pch Either an integer or a single character specifying a symbol to be
+#'   used as the default in plotting points. See \code{\link[graphics]{points}}
+#'   for possible values and their interpretation. Note that only integers and
+#'   single-character strings can be set as a graphics parameter
 #'   (and not NA nor NULL).
 #'
 #' @importFrom graphics plot par
@@ -49,14 +50,14 @@ plot_coverage <- function(dat, type = "o", pch = 20, ylim = c(0, 100),
 #  plot_pca_variance -----------------------------------------------------------
 #' @title Plot variance explained by PCA components
 #'
-#' @description Plot the variance explained by each component. The number of 
+#' @description Plot the variance explained by each component. The number of
 #'   components shown is controlled by `num_components`, with up to the first
-#'   10 componenets shown by default. If less than the requested number of 
+#'   10 componenets shown by default. If less than the requested number of
 #'   components exist, then all the components will be shown.
 #'
 #' @param pca output of \code{pca_mip_data}
 #' @param num_components numeric for number of maximum components to be shown
-#' 
+#'
 #' @importFrom plotly plot_ly layout
 #' @export
 #' @examples
@@ -93,19 +94,19 @@ plot_pca_variance <- function(pca, num_components = 10) {
 #'
 #' @description Plots either the first 2 or 3 principal components, with the
 #'   data points labelled accordng to chosen meta data in the mip data set.
-#'   
+#'
 #' @details Using the output of \code{pca_mip_data} and a specified variable
-#'   within the mip data set, e.g the country of sample collection, a 
+#'   within the mip data set, e.g the country of sample collection, a
 #'   scatterplot of the data is produced. Either the first 2 or 3 components
-#'   can be used, as specified with `num_components`. The chosen `meta_var` 
-#'   must be a variable found within the mip data set (this is included as 
+#'   can be used, as specified with `num_components`. The chosen `meta_var`
+#'   must be a variable found within the mip data set (this is included as
 #'   the last element in the object returned by \code{pca_mip_data}).
 #'
 #' @param pca output of \code{pca_mip_data}
 #' @param num_components numeric for number of components used. Default = 2
-#' @param meta_var character for the desired meta variable to be used for 
+#' @param meta_var character for the desired meta variable to be used for
 #'   labelling the scatterplot. Default = "Country".
-#' 
+#'
 #' @importFrom plotly plot_ly
 #' @importFrom RColorBrewer brewer.pal
 #' @export

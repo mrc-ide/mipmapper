@@ -10,7 +10,7 @@
 #'
 #' @importFrom data.table fread
 #' @export
-#' 
+#'
 #' @examples
 #' \dontrun{
 #' file <- "mip_files/dataset.csv"
@@ -28,3 +28,24 @@ fast_read <- function(file) {
 is.int_vector <- function(x) {
   x == as.integer(x)
 }
+
+#  load system file ---------------------------------------------------------------
+#' @title Load system file
+#'
+#' @description Load system file
+#'
+#' @details Load a file from within the mipmapper package.
+#'
+#' @param name the file name
+#'
+#' @export
+#' @examples
+#' # TODO
+
+mipmapper_file <- function(name) {
+  name_full <- system.file("extdata/", name, package='mipmapper', mustWork = TRUE)
+  ret <- fast_read(name_full)
+
+  return(ret)
+}
+

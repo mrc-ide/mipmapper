@@ -12,9 +12,9 @@ plot_pca_variance(pca, num_components = 10)
 \item{num_components}{numeric for number of maximum components to be shown}
 }
 \description{
-Plot the variance explained by each component. The number of 
+Plot the variance explained by each component. The number of
   components shown is controlled by `num_components`, with up to the first
-  10 componenets shown by default. If less than the requested number of 
+  10 componenets shown by default. If less than the requested number of
   components exist, then all the components will be shown.
 }
 \examples{
