@@ -4,7 +4,7 @@ mipmapper
 
 [![Travis build status](https://travis-ci.org/mrc-ide/mipmapper.svg?branch=master)](https://travis-ci.org/mrc-ide/mipmapper) [![AppVeyor build status](https://ci.appveyor.com/api/projects/status/github/mrc-ide/mipmapper?branch=master&svg=true)](https://ci.appveyor.com/project/mrc-ide/mipmapper) [![Coverage status](https://codecov.io/gh/mrc-ide/mipmapper/branch/master/graph/badge.svg)](https://codecov.io/github/mrc-ide/mipmapper?branch=master)
 
-The R package *mipmapper* package contains a series of functions for analysing and visualising Molecular Inversion Probe (MIP) data. **This package is in early stages of development**, but will hopefully eventually include a range of population genetic analyses.
+The R package *mipmapper* package contains a series of functions for analysing and visualising Molecular Inversion Probe (MIP) data. **This package is in early stages of development**, but will eventually include a range of methods for carrying out population genetic analyses.
 
 ### Installation
 
@@ -18,7 +18,6 @@ Then we can simply install the *mipmapper* package directly from GitHub by runni
 
 ``` r
 devtools::install_github("mrc-ide/mipmapper")
-library(mipmapper)
 ```
 
 And we can load the package by running
@@ -27,13 +26,16 @@ And we can load the package by running
 library(mipmapper)
 ```
 
-### Example analysis
+### Data loading and filtering
 
 Load raw data from .csv file. You will need to change the file path to where you have stored the data. An example of this is shown below, but commented out.
 
 ``` r
+# if loading your own data, uncomment this line and change path to your data
 # dat0 <- fast_read("path_to_your_data/NeutralSNPs_AheroYombo.csv")
-dat0 <- fast_read(system.file("extdata", "dummy_data.csv", package = "mipmapper"))
+
+# here we will use in-built example data
+dat0 <- mipmapper_file("dummy_data.csv")
 ```
 
 Some miscellaneous filtering. Subset to SNPs only (i.e. no more complex mutations), group all alternative alleles together as a single "non-reference" allele, and drop irregular loci (for example non-integer barcode counts).
@@ -48,7 +50,7 @@ Next we want to filter based on coverage, throwing away any loci that are below 
 plot_coverage(dat1)
 ```
 
-![](tools/README-plot_coverage-1.png)
+![](README-plot_coverage-1.png)
 
 Choose a threshold that strikes a balance between data quantity and quality. Once you have chosen a threshold, apply the filtering as follows:
 
@@ -57,7 +59,9 @@ my_threshold <- 6
 dat3 <- filter_coverage(dat1, min_coverage = my_threshold)
 ```
 
-We can now use convert our filtered dataset into a wide format, where each row is an unique sample, with new columns for each locus. This can be achieved as follows:
+### Principal Components Analysis
+
+Before carry out PCA analysis we will convert our filtered dataset into a wide format, where each row is an unique sample, with new columns for each locus. This can be achieved as follows:
 
 ``` r
 dat4 <- melt_mip_data(dat3)
