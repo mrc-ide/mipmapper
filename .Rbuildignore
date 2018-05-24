@@ -7,3 +7,6 @@ R_ignore/
 ^codecov\.yml$
 ^scripts/
 ^TODO.md
+^pkgdown_link_formats\.R$
+^README\.Rmd$
+^docs$

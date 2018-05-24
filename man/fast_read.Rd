@@ -16,5 +16,8 @@ Quickly load data as data.frame
 TODO
 }
 \examples{
-# TODO
+\dontrun{
+file <- "mip_files/dataset.csv"
+dat <- fast_read(file)
+}
 }

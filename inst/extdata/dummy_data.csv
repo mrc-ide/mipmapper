@@ -1,0 +1,12 @@
+"Year","Country","Study","DHS_Cluster","Lat","Long","Sample_ID","Chrom","Pos","Ref","Alt","Coverage","Barcode_Count"
+2011,"mipmappia","main",1,26.432513,-46.536719,"samp1",1,100,"A","G",4,0
+2011,"mipmappia","main",1,26.432513,-46.536719,"samp2",1,200,"C","A",80,0
+2011,"mipmappia","main",1,26.432513,-46.536719,"samp1",2,100,"TC","T",600,600
+2011,"mipmappia","main",1,26.432513,-46.536719,"samp2",1,100,"A","T",400,400
+2011,"mipmappia","main",1,26.432513,-46.536719,"samp1",1,100,"A","T",4,0
+2011,"mipmappia","main",1,26.432513,-46.536719,"samp2",3,300,"C","A",200,120
+2011,NA,"PC",NA,NA,NA,"PC1",1,100,"T","TCCAGAGACT",0,0
+2011,NA,"PC",NA,NA,NA,"PC2",1,200,"G","A",457,NA
+2011,NA,"PC",NA,NA,NA,"PC3",2,100,"A","C",341,341
+2011,NA,"PC",NA,NA,NA,"PC4",1,100,"C","T",NA,0
+2011,NA,"PC",NA,NA,NA,"PC5",1,200,"T","A",-4,100
