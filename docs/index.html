@@ -67,33 +67,39 @@
 <div class="page-header"><h1 class="hasAnchor">
 <a href="#mipmapper" class="anchor"></a>mipmapper</h1></div>
 
-<p>The R package <em>mipmapper</em> package contains a series of functions for analysing and visualising Molecular Inversion Probe (MIP) data. <strong>This package is in early stages of development</strong>, but will hopefully eventually include a range of population genetic analyses.</p>
+<p>The R package <em>mipmapper</em> package contains a series of functions for analysing and visualising Molecular Inversion Probe (MIP) data. <strong>This package is in early stages of development</strong>, but will eventually include a range of methods for carrying out population genetic analyses. Full documentation can be found <a href="https://ojwatson.github.io/mipmapper/">here</a>.</p>
 <div id="installation" class="section level3">
 <h3 class="hasAnchor">
 <a href="#installation" class="anchor"></a>Installation</h3>
 <p>In R, ensure that you have the devtools package installed by running</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">install.packages</span>(<span class="st">"devtools"</span>, <span class="dt">repos=</span><span class="st">'http://cran.us.r-project.org'</span>)</code></pre></div>
 <p>Then we can simply install the <em>mipmapper</em> package directly from GitHub by running</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">devtools<span class="op">::</span><span class="kw"><a href="http://www.rdocumentation.org/packages/devtools/topics/install_github">install_github</a></span>(<span class="st">"mrc-ide/mipmapper"</span>)
-<span class="kw">library</span>(mipmapper)</code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">devtools::<span class="kw">install_github</span>(<span class="st">"mrc-ide/mipmapper"</span>)</code></pre></div>
 <p>And we can load the package by running</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(mipmapper)</code></pre></div>
 </div>
-<div id="example-analysis" class="section level3">
+<div id="data-loading-and-filtering" class="section level3">
 <h3 class="hasAnchor">
-<a href="#example-analysis" class="anchor"></a>Example analysis</h3>
+<a href="#data-loading-and-filtering" class="anchor"></a>Data loading and filtering</h3>
 <p>Load raw data from .csv file. You will need to change the file path to where you have stored the data. An example of this is shown below, but commented out.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># dat0 &lt;- fast_read("path_to_your_data/NeutralSNPs_AheroYombo.csv")</span>
-dat0 &lt;-<span class="st"> </span><span class="kw"><a href="reference/fast_read.html">fast_read</a></span>(<span class="kw">system.file</span>(<span class="st">"extdata"</span>, <span class="st">"dummy_data.csv"</span>, <span class="dt">package =</span> <span class="st">"mipmapper"</span>))</code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># if loading your own data, uncomment this line and change path to your data</span>
+<span class="co"># dat0 &lt;- fast_read("path_to_your_data/NeutralSNPs_AheroYombo.csv")</span>
+
+<span class="co"># here we will use in-built example data</span>
+dat0 &lt;-<span class="st"> </span><span class="kw"><a href="http://www.rdocumentation.org/packages/mipmapper/topics/mipmapper_file">mipmapper_file</a></span>(<span class="st">"dummy_data.csv"</span>)</code></pre></div>
 <p>Some miscellaneous filtering. Subset to SNPs only (i.e. no more complex mutations), group all alternative alleles together as a single “non-reference” allele, and drop irregular loci (for example non-integer barcode counts).</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">dat1 &lt;-<span class="st"> </span><span class="kw"><a href="reference/filter_misc.html">filter_misc</a></span>(dat0, <span class="dt">SNP_only =</span> <span class="ot">TRUE</span>, <span class="dt">group_Alt =</span> <span class="ot">TRUE</span>, <span class="dt">drop_irregular =</span> <span class="ot">TRUE</span>)</code></pre></div>
 <p>Next we want to filter based on coverage, throwing away any loci that are below a minimum coverage level. We can visualise how much data will be left at different thresholds using the following function:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw"><a href="reference/plot_coverage.html">plot_coverage</a></span>(dat1)</code></pre></div>
-<p><img src="README-plot_coverage-1.png" width="700"></p>
+<p><img src="../../../My%20Programs/Personal%20packages/mipmapper/README-plot_coverage-1.png" width="700"></p>
 <p>Choose a threshold that strikes a balance between data quantity and quality. Once you have chosen a threshold, apply the filtering as follows:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">my_threshold &lt;-<span class="st"> </span><span class="dv">6</span>
 dat3 &lt;-<span class="st"> </span><span class="kw"><a href="reference/filter_coverage.html">filter_coverage</a></span>(dat1, <span class="dt">min_coverage =</span> my_threshold)</code></pre></div>
-<p>We can now use convert our filtered dataset into a wide format, where each row is an unique sample, with new columns for each locus. This can be achieved as follows:</p>
+</div>
+<div id="principal-components-analysis" class="section level3">
+<h3 class="hasAnchor">
+<a href="#principal-components-analysis" class="anchor"></a>Principal Components Analysis</h3>
+<p>Before carry out PCA analysis we will convert our filtered dataset into a wide format, where each row is an unique sample, with new columns for each locus. This can be achieved as follows:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">dat4 &lt;-<span class="st"> </span><span class="kw"><a href="reference/melt_mip_data.html">melt_mip_data</a></span>(dat3)</code></pre></div>
 <p>This can then be used to impute any missing values:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">dat5 &lt;-<span class="st"> </span><span class="kw"><a href="reference/impute_mip_data.html">impute_mip_data</a></span>(dat4)</code></pre></div>
@@ -101,12 +107,18 @@ dat3 &lt;-<span class="st"> </span><span class="kw"><a href="reference/filter_co
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">pca &lt;-<span class="st"> </span><span class="kw"><a href="reference/pca_mip_data.html">pca_mip_data</a></span>(dat5)</code></pre></div>
 <p>We can view the variance explained by each compenet graphically using:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw"><a href="reference/plot_pca_variance.html">plot_pca_variance</a></span>(pca)</code></pre></div>
-<p><img src="tools/pca_var.png"> And lastly we can plot the actual prinical component analysis, to see how it has clustered our data:</p>
+<div class="figure">
+<img src="../../../My%20Programs/Personal%20packages/mipmapper/tools/pca_var.png">
+</div>
+<p>And lastly we can plot the actual prinical component analysis, to see how it has clustered our data:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw"><a href="reference/plot_pca.html">plot_pca</a></span>(pca, <span class="dt">num_components =</span> <span class="dv">2</span>, <span class="dt">meta_var =</span> <span class="st">"Country"</span>)</code></pre></div>
-<p><img src="tools/pca_2var.png"> We can control whether we want to visualise the first 2 or 3 components, with the <code>num_componenets</code> argument:</p>
+<div class="figure">
+<img src="../../../My%20Programs/Personal%20packages/mipmapper/tools/pca_2var.png">
+</div>
+<p>We can control whether we want to visualise the first 2 or 3 components, with the <code>num_componenets</code> argument:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw"><a href="reference/plot_pca.html">plot_pca</a></span>(pca, <span class="dt">num_components =</span> <span class="dv">3</span>, <span class="dt">meta_var =</span> <span class="st">"Country"</span>)</code></pre></div>
 <div class="figure">
-<img src="tools/pca_3var.png">
+<img src="../../../My%20Programs/Personal%20packages/mipmapper/tools/pca_3var.png">
 </div>
 </div>
 </div>
