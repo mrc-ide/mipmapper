@@ -8,6 +8,7 @@ pkgdown::build_site()
 
 # change lines in README.md to make link point to tools
 lines <- readLines("README.md")
+lines <- lines[-c(1:(which(grepl("# mipmapper",lines))-1))]
 lines[grep("(.*png)",lines)] <- gsub("!\\[\\]\\(R","!\\[\\](tools/R",lines[grep("(.*png)",lines)])
 writeLines(lines, "README.md")
 
