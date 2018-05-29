@@ -16,5 +16,5 @@ Load system file
 Load a file from within the mipmapper package.
 }
 \examples{
-# TODO
+dat <- mipmapper_file("dummy_data.csv")
 }

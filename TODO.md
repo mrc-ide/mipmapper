@@ -14,3 +14,4 @@ or PCA utility, so might be nice to come up with imporvements to make faking
 large clustered genetic data.
 5. Shiny interface for loading a dataset, sliders for filtering, and then 
 displayed plots. 
+6. Fst permutation test

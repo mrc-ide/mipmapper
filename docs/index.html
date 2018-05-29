@@ -74,7 +74,7 @@
 <p>In R, ensure that you have the devtools package installed by running</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">install.packages</span>(<span class="st">"devtools"</span>, <span class="dt">repos=</span><span class="st">'http://cran.us.r-project.org'</span>)</code></pre></div>
 <p>Then we can simply install the <em>mipmapper</em> package directly from GitHub by running</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">devtools::<span class="kw">install_github</span>(<span class="st">"mrc-ide/mipmapper"</span>)</code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">devtools<span class="op">::</span><span class="kw"><a href="http://www.rdocumentation.org/packages/devtools/topics/install_github">install_github</a></span>(<span class="st">"mrc-ide/mipmapper"</span>)</code></pre></div>
 <p>And we can load the package by running</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(mipmapper)</code></pre></div>
 </div>
@@ -86,7 +86,7 @@
 <span class="co"># dat0 &lt;- fast_read("path_to_your_data/NeutralSNPs_AheroYombo.csv")</span>
 
 <span class="co"># here we will use in-built example data</span>
-dat0 &lt;-<span class="st"> </span><span class="kw"><a href="http://www.rdocumentation.org/packages/mipmapper/topics/mipmapper_file">mipmapper_file</a></span>(<span class="st">"dummy_data.csv"</span>)</code></pre></div>
+dat0 &lt;-<span class="st"> </span><span class="kw"><a href="reference/mipmapper_file.html">mipmapper_file</a></span>(<span class="st">"dummy_data.csv"</span>)</code></pre></div>
 <p>Some miscellaneous filtering. Subset to SNPs only (i.e. no more complex mutations), group all alternative alleles together as a single “non-reference” allele, and drop irregular loci (for example non-integer barcode counts).</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">dat1 &lt;-<span class="st"> </span><span class="kw"><a href="reference/filter_misc.html">filter_misc</a></span>(dat0, <span class="dt">SNP_only =</span> <span class="ot">TRUE</span>, <span class="dt">group_Alt =</span> <span class="ot">TRUE</span>, <span class="dt">drop_irregular =</span> <span class="ot">TRUE</span>)</code></pre></div>
 <p>Next we want to filter based on coverage, throwing away any loci that are below a minimum coverage level. We can visualise how much data will be left at different thresholds using the following function:</p>

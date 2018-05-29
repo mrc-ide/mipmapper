@@ -35,3 +35,9 @@ test_that("fast_read works", {
   expect_equal(dat, dat2)
   unlink("data.csv")
 })
+
+test_that("mipmapper_file() works", {
+  dat <- mipmapper_file("dummy_data.csv")
+  expect_equal(dim(dat), c(6336, 13))
+})
+
