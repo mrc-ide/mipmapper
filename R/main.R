@@ -111,7 +111,7 @@ bind_data <- function(project,
   project$data_processed <- project$data_raw
   project$data_processed$WSAF <- data_counts / data_coverage
   
-  message("data loaded")
+  cat("data loaded\n")
   
   invisible(project)
 }
@@ -142,7 +142,7 @@ filter_misc <- function(project,
   # check inputs
   assert_custom_class(project, "mipmapper_project")
   if (length(project$data_raw) == 0) {
-    stop("do data loaded")
+    stop("no data loaded")
   }
   assert_single_logical(filter_SNP)
   assert_single_logical(integer_counts)
@@ -170,9 +170,9 @@ filter_misc <- function(project,
     both_single_character <- (Ref_single_character & Alt_single_character)
     
     # report to console
-    message(sprintf("%s loci found to be non-SNPs (%s%% of loci)",
-                    sum(!both_single_character, na.rm = TRUE),
-                    round(mean(!both_single_character, na.rm = TRUE)*100, 2)))
+    cat(sprintf("%s loci found to be non-SNPs (%s%% of loci)\n",
+                sum(!both_single_character, na.rm = TRUE),
+                round(mean(!both_single_character, na.rm = TRUE)*100, 2)))
     
     # filter
     w <- both_single_character
@@ -190,16 +190,16 @@ filter_misc <- function(project,
     is_integer_both <- (is_integer_coverage & is_integer_counts)
     
     # report to console
-    message("")
-    message(sprintf("%s coverage calls found to be non-integer (%s%% of calls)",
-                    sum(!is_integer_coverage, na.rm = TRUE),
-                    round(mean(!is_integer_coverage, na.rm = TRUE)*100, 2)))
-    message(sprintf("%s barcode count calls found to be non-integer (%s%% of calls)",
-                    sum(!is_integer_counts, na.rm = TRUE),
-                    round(mean(!is_integer_counts, na.rm = TRUE)*100, 2)))
-    message(sprintf("total %s values re-coded as missing (%s%% of calls)",
-                    sum(!is_integer_both, na.rm = TRUE),
-                    round(mean(!is_integer_both, na.rm = TRUE)*100, 2)))
+    cat("\n")
+    cat(sprintf("%s coverage calls found to be non-integer (%s%% of calls)\n",
+                sum(!is_integer_coverage, na.rm = TRUE),
+                round(mean(!is_integer_coverage, na.rm = TRUE)*100, 2)))
+    cat(sprintf("%s barcode count calls found to be non-integer (%s%% of calls)\n",
+                sum(!is_integer_counts, na.rm = TRUE),
+                round(mean(!is_integer_counts, na.rm = TRUE)*100, 2)))
+    cat(sprintf("total %s values re-coded as missing (%s%% of calls)\n",
+                sum(!is_integer_both, na.rm = TRUE),
+                round(mean(!is_integer_both, na.rm = TRUE)*100, 2)))
     
     # re-code as missing
     w <- which(!is_integer_both)
@@ -214,8 +214,8 @@ filter_misc <- function(project,
     counts_gr_coverage <- (project$data_processed$data_counts > project$data_processed$data_coverage)
     
     # report to console
-    message("")
-    message(sprintf("%s barcode counts found to exceed coverage (%s%% of calls)",
+    cat("\n")
+    cat(sprintf("%s barcode counts found to exceed coverage (%s%% of calls)\n",
                     sum(counts_gr_coverage, na.rm = TRUE),
                     round(mean(counts_gr_coverage, na.rm = TRUE)*100, 2)))
     
