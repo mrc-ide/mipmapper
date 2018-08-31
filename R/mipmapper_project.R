@@ -78,10 +78,25 @@ print_full <- function(x, ...) {
 
 summary.mipmapper_project <- function(object, ...) {
   
-  message("TODO - improve custom print method")
-  
+  # summarise raw data
   if (length(object$data_raw) > 0) {
-    message("data loaded")
+    n_samples_raw <- nrow(object$data_raw$data_coverage)
+    n_loci_raw <- ncol(object$data_raw$data_coverage)
+    
+    cat("RAW DATA\n")
+    cat(sprintf("  samples = %s\n", n_samples_raw))
+    cat(sprintf("  loci = %s\n", n_loci_raw))
+  }
+  cat("\n")
+  
+  # summarise processed data
+  if (length(object$data_processed) > 0) {
+    n_samples_processed <- nrow(object$data_processed$data_coverage)
+    n_loci_processed <- ncol(object$data_processed$data_coverage)
+    
+    cat("PROCESSED DATA\n")
+    cat(sprintf("  samples = %s (%s%%)\n", n_samples_processed, round(n_samples_processed/n_samples_raw*100)))
+    cat(sprintf("  loci = %s (%s%%)\n", n_loci_processed, round(n_loci_processed/n_loci_raw*100)))
   }
   
 }
