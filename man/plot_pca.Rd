@@ -18,15 +18,3 @@ labelling the scatterplot}
 Plots either the first 2 or 3 principal components, with the
   data points labelled accordng to chosen meta data.
 }
-\examples{
-\dontrun{
-dat <- dummy_data()
-dat <- filter_misc(dat = dat)
-dat <- filter_coverage(dat = dat, min_coverage = 2)
-dat <- melt_mip_data(dat = dat)
-dat <- impute_mip_data(dat = dat)
-pca <- pca_mip_data(dat = dat)
-plot_pca(pca, num_components = 2, meta_var = "Country")
-plot_pca(pca, num_components = 3, meta_var = "Study")
-}
-}

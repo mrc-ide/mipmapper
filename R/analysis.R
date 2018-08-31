@@ -13,19 +13,6 @@
 #' @param ... other arguments to pass to FUN
 #'
 #' @export
-#' @examples
-#' \dontrun{
-#' dat <- data.frame(
-#' "Sample_ID" = c(rep("a", 3), rep("b", 2)),
-#' "Chrom" = c(1, 1, 2, 1, 1),
-#' "Pos" = c(100, 200, 50, 100, 200),
-#' "Coverage" = c(47, 95, 100, 52, 100),
-#' "Barcode_Count" = c(47, 0, 40, 52, 70)
-#' )
-#'
-#' dat <- melt_mip_data(dat = dat)
-#' dat <- impute_mip_data(dat = dat)
-#' }
 
 impute <- function(dat, MARGIN = 2, FUN = mean, ...) {
   
@@ -60,15 +47,6 @@ impute <- function(dat, MARGIN = 2, FUN = mean, ...) {
 #' @param plot_on whether to plot PCA results
 #'
 #' @export
-#' @examples
-#' \dontrun{
-#' dat <- dummy_data()
-#' dat <- filter_misc(dat = dat)
-#' dat <- filter_coverage(dat = dat, min_coverage = 2)
-#' dat <- melt_mip_data(dat = dat)
-#' dat <- impute_mip_data(dat = dat)
-#' pca <- pca_mip_data(dat = dat)
-#' }
 
 pca_mip_data <- function(project, plot_on = TRUE) {
   
@@ -76,11 +54,8 @@ pca_mip_data <- function(project, plot_on = TRUE) {
   assert_custom_class(project, "mipmapper_project")
   assert_single_logical(plot_on)
   
-  # get within-sample allele frequencies
-  WSAF <- project$data_processed$data_counts / project$data_processed$data_coverage
-  
   # impute missing values
-  WSAF <- impute(WSAF, MARGIN = 2, FUN = mean)
+  WSAF <- impute(project$data_processed$WSAF, MARGIN = 2, FUN = mean)
   
   # compute PCA
   pca <- prcomp(WSAF)

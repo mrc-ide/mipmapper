@@ -16,14 +16,3 @@ Plot the variance explained by each component. The number of
   components shown is controlled by \code{num_components}, with up to the
   first 10 components shown by default.
 }
-\examples{
-\dontrun{
-dat <- dummy_data()
-dat <- filter_misc(dat = dat)
-dat <- filter_coverage(dat = dat, min_coverage = 2)
-dat <- melt_mip_data(dat = dat)
-dat <- impute_mip_data(dat = dat)
-pca <- pca_mip_data(dat = dat)
-plot_pca_variance(pca, num_components = 3)
-}
-}

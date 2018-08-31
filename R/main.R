@@ -3,8 +3,8 @@
 # The following commands ensure that package dependencies are listed in the
 # NAMESPACE file.
 
-#' @import ggplot2
-#' @import gridExtra
+#' @importFrom raster raster plot
+#' @importFrom viridis plasma
 #' @importFrom dplyr group_by summarize
 #' @importFrom data.table rbindlist fread
 #' @importFrom plotly plot_ly layout
@@ -109,6 +109,7 @@ bind_data <- function(project,
                            data_locus = data_locus)
   
   project$data_processed <- project$data_raw
+  project$data_processed$WSAF <- data_counts / data_coverage
   
   message("data loaded")
   
@@ -223,6 +224,9 @@ filter_misc <- function(project,
     project$data_processed$data_coverage[w] <- NA
     project$data_processed$data_counts[w] <- NA
   }
+  
+  # recalculate WSAF
+  project$data_processed$data_WSAF <- project$data_processed$data_counts / project$data_processed$data_coverage
   
   invisible(project)
 }
@@ -438,6 +442,9 @@ filter_coverage <- function(project,
   project$data_processed$data_counts <- data_counts
   project$data_processed$data_sample <- data_sample
   project$data_processed$data_locus <- data_locus
+  
+  # recalculate WSAF
+  project$data_processed$WSAF <- data_counts / data_coverage
   
   # return invisibly
   invisible(project)

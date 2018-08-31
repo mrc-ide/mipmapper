@@ -22,8 +22,6 @@ NULL
 #' @param name the file name
 #'
 #' @export
-#' @examples
-#' # TODO
 
 mipmapper_file <- function(name) {
   name_full <- system.file("extdata/", name, package='mipmapper', mustWork = TRUE)

@@ -15,6 +15,3 @@ Load system file
 \details{
 Load a file from within the mipmapper package.
 }
-\examples{
-# TODO
-}

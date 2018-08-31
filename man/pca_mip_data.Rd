@@ -17,13 +17,3 @@ Using the output of \code{impute_mip_data}, principal component
   with the variance explained by each component and the loadings of each
   component.
 }
-\examples{
-\dontrun{
-dat <- dummy_data()
-dat <- filter_misc(dat = dat)
-dat <- filter_coverage(dat = dat, min_coverage = 2)
-dat <- melt_mip_data(dat = dat)
-dat <- impute_mip_data(dat = dat)
-pca <- pca_mip_data(dat = dat)
-}
-}

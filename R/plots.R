@@ -37,6 +37,53 @@ divergent_colours <- function(K) {
 }
 
 #------------------------------------------------
+#' @title Plot raster image of coverage matrix
+#'
+#' @description Plot raster image of coverage matrix.
+#'
+#' @param project a \code{mipmapper_project} with data already loaded
+#'
+#' @export
+
+plot_coverage_matrix <- function(project) {
+  
+  # check inputs
+  assert_custom_class(project, "mipmapper_project")
+  if (is.null(project$data_processed$data_coverage)) {
+    stop("no data loaded")
+  }
+  
+  # plot raster image
+  mat_raster <- raster(project$data_processed$data_coverage)
+  raster::plot(mat_raster, col = plasma(100), axes = FALSE, box = FALSE,
+               xlab = "locus", ylab = "sample", legend.args = list(text = "Coverage"))
+}
+
+#------------------------------------------------
+#' @title Plot raster image of within-sample allele frequencies
+#'
+#' @description Plot raster image of within-sample allele frequencies.
+#'
+#' @param project a \code{mipmapper_project} with data already loaded
+#'
+#' @export
+
+plot_WSAF_matrix <- function(project) {
+  
+  # check inputs
+  assert_custom_class(project, "mipmapper_project")
+  if (is.null(project$data_processed$data_coverage)) {
+    stop("no data loaded")
+  }
+  
+  # plot raster image
+  mat_raster <- raster(project$data_processed$WSAF)
+  raster::plot(mat_raster, col = plasma(100), axes = FALSE, box = FALSE,
+               xlab = "locus", ylab = "sample", legend.args = list(text = "WSAF"))
+  
+}
+
+#------------------------------------------------
 #' @title Plot PCA
 #'
 #' @description Plots either the first 2 or 3 principal components, with the
@@ -48,17 +95,6 @@ divergent_colours <- function(K) {
 #'   labelling the scatterplot
 #'
 #' @export
-#' @examples
-#' \dontrun{
-#' dat <- dummy_data()
-#' dat <- filter_misc(dat = dat)
-#' dat <- filter_coverage(dat = dat, min_coverage = 2)
-#' dat <- melt_mip_data(dat = dat)
-#' dat <- impute_mip_data(dat = dat)
-#' pca <- pca_mip_data(dat = dat)
-#' plot_pca(pca, num_components = 2, meta_var = "Country")
-#' plot_pca(pca, num_components = 3, meta_var = "Study")
-#' }
 
 plot_pca <- function(project, num_components = 2, grouping_var = NULL) {
   
@@ -114,16 +150,6 @@ plot_pca <- function(project, num_components = 2, grouping_var = NULL) {
 #' @param num_components number of components to be shown
 #'
 #' @export
-#' @examples
-#' \dontrun{
-#' dat <- dummy_data()
-#' dat <- filter_misc(dat = dat)
-#' dat <- filter_coverage(dat = dat, min_coverage = 2)
-#' dat <- melt_mip_data(dat = dat)
-#' dat <- impute_mip_data(dat = dat)
-#' pca <- pca_mip_data(dat = dat)
-#' plot_pca_variance(pca, num_components = 3)
-#' }
 
 plot_pca_variance <- function(project, num_components = 10) {
   
