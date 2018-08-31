@@ -2,40 +2,26 @@
 % Please edit documentation in R/main.R
 \name{filter_misc}
 \alias{filter_misc}
-\title{Filter data}
+\title{Filter miscellaneous values}
 \usage{
-filter_misc(dat, SNP_only = TRUE, group_Alt = TRUE, drop_irregular = TRUE)
+filter_misc(project, filter_SNP = TRUE, integer_counts = TRUE,
+  coverage_greq_counts = TRUE, check_delete_output = TRUE)
 }
 \arguments{
-\item{dat}{MIP data. The data must have the following variables:
-\itemize{
-    \item Ref : Character for reference allele nucleotide
-    \item Alt : Character for alternative allele nucelotide
-    \item Coverage : The total read coverage as numerics
-    \item Barcode_Count : The total barocdes recovered
-    }}
+\item{project}{a \code{mipmapper_project} with data already loaded}
 
-\item{SNP_only}{Boolean detailing if subsetting should remove all cases
-where the ALT allele is longer than 1 nucleotide. Default = `TRUE`}
+\item{filter_SNP}{filter to single nucleotide polymorphism (SNP) only. Remove
+all loci where Ref or Alt allele is longer than one character}
 
-\item{group_Alt}{Boolean detailing whether all ALT alleles should be 
-grouped together. Default = `TRUE`}
+\item{integer_counts}{re-code as missing all genotype calls where coverage or
+barcode counts are non-integer}
 
-\item{drop_irregular}{Boolean detailing whether irregular data should
-be removed. This includes non integer barcode counts and any instances 
-where there is less coverage than barcode counts. Default = `TRUE`}
+\item{coverage_greq_counts}{re-code as missing all genotype calls where 
+coverage is not greater than or equal to barcode counts}
+
+\item{check_delete_output}{whether to prompt the user before overwriting 
+existing data/outputs}
 }
 \description{
-Filter out miscellaneous unwanted values from data
-}
-\details{
-`filter_misc` takes a raw dataset and applies a series of filters
-  that enable the removal of non-standarad ALT allele calls and long ALT
-  calls. It also enables the filtering of irregular data, such as data
-  with non integer counts of barcodes or more barcode counts than coverage.
-}
-\examples{
-dat <- dummy_data()
-dat2 <- filter_misc(dat)
-dim(dat2)[1] < dim(dat)[1]
+Apply miscellaneous filters to data.
 }

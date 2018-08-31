@@ -4,20 +4,20 @@
 \alias{plot_pca_variance}
 \title{Plot variance explained by PCA components}
 \usage{
-plot_pca_variance(pca, num_components = 10)
+plot_pca_variance(project, num_components = 10)
 }
 \arguments{
-\item{pca}{output of \code{pca_mip_data}}
+\item{project}{a \code{mipmapper_project} containing pca analysis output}
 
-\item{num_components}{numeric for number of maximum components to be shown}
+\item{num_components}{number of components to be shown}
 }
 \description{
-Plot the variance explained by each component. The number of
-  components shown is controlled by `num_components`, with up to the first
-  10 componenets shown by default. If less than the requested number of
-  components exist, then all the components will be shown.
+Plot the variance explained by each component. The number of 
+  components shown is controlled by \code{num_components}, with up to the
+  first 10 components shown by default.
 }
 \examples{
+\dontrun{
 dat <- dummy_data()
 dat <- filter_misc(dat = dat)
 dat <- filter_coverage(dat = dat, min_coverage = 2)
@@ -25,4 +25,5 @@ dat <- melt_mip_data(dat = dat)
 dat <- impute_mip_data(dat = dat)
 pca <- pca_mip_data(dat = dat)
 plot_pca_variance(pca, num_components = 3)
+}
 }

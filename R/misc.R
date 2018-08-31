@@ -1,35 +1,18 @@
 
 #------------------------------------------------
-#' @title Quickly load data as data.frame
+#' Pipe operator
 #'
-#' @description Quickly load data as data.frame
+#' See \code{\link[magrittr:pipe]{\%>\%}} for more details.
 #'
-#' @details TODO
-#'
-#' @param file String to the path where your mip dataset is saved
-#'
-#' @importFrom data.table fread
+#' @name %>%
+#' @rdname pipe
+#' @keywords internal
+#' @importFrom dplyr %>%
 #' @export
-#'
-#' @examples
-#' \dontrun{
-#' file <- "mip_files/dataset.csv"
-#' dat <- fast_read(file)
-#' }
-
-fast_read <- function(file) {
-  fread(file, data.table = FALSE)
-}
+#' @usage lhs \%>\% rhs
+NULL
 
 #------------------------------------------------
-# check if values can be coerced to integer
-# (not exported)
-#' @noRd
-is.int_vector <- function(x) {
-  x == as.integer(x)
-}
-
-#  load system file ---------------------------------------------------------------
 #' @title Load system file
 #'
 #' @description Load system file
@@ -45,7 +28,43 @@ is.int_vector <- function(x) {
 mipmapper_file <- function(name) {
   name_full <- system.file("extdata/", name, package='mipmapper', mustWork = TRUE)
   ret <- fast_read(name_full)
-
+  
   return(ret)
 }
 
+#------------------------------------------------
+#' @title Quickly load data as dataframe
+#'
+#' @description Quickly load data as a dataframe.
+#'
+#' @param file path to where your data is saved
+#'
+#' @export
+#'
+#' @examples
+#' \dontrun{
+#' file <- "mip_files/dataset.csv"
+#' dat <- fast_read(file)
+#' }
+
+fast_read <- function(file) {
+  fread(file, data.table = FALSE)
+}
+
+# -----------------------------------
+# ask user a yes/no question. Return TRUE/FALSE
+#' @noRd
+user_yes_no <- function(x="continue? (Y/N): ") {
+  user_choice <- NA
+  while (!user_choice %in% c("Y", "y" ,"N", "n")) {
+    user_choice <- readline(x)
+  }
+  return(user_choice %in% c("Y", "y"))
+}
+
+# -----------------------------------
+# test if x is integer-valued (as opposed to being of class "integer")
+#' @noRd
+is_integer <- function(x) {
+  as.integer(x) == x
+}

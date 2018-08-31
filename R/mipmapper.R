@@ -1,3 +1,5 @@
+
+#------------------------------------------------
 #' \pkg{mipmapper} Filtering and analysis of MIP panel genetic datasets
 #'
 #' Molecular inversion probes (MIPs) are a tool for genomic
@@ -9,6 +11,3 @@
 #' @name mipmapper
 #'
 "_PACKAGE"
-
-globalVariables(c("Alt", "Barcode_Count", "Coverage",
-                  "group_by", "plot", "summarize"))

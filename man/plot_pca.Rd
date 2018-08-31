@@ -4,29 +4,22 @@
 \alias{plot_pca}
 \title{Plot PCA}
 \usage{
-plot_pca(pca, num_components = 2, meta_var = "Country")
+plot_pca(project, num_components = 2, grouping_var = NULL)
 }
 \arguments{
-\item{pca}{output of \code{pca_mip_data}}
+\item{project}{a \code{mipmapper_project} containing pca analysis output}
 
-\item{num_components}{numeric for number of components used. Default = 2}
+\item{num_components}{numeric for number of components used}
 
-\item{meta_var}{character for the desired meta variable to be used for
-labelling the scatterplot. Default = "Country".}
+\item{grouping_var}{character for the desired meta variable to be used for 
+labelling the scatterplot}
 }
 \description{
 Plots either the first 2 or 3 principal components, with the
-  data points labelled accordng to chosen meta data in the mip data set.
-}
-\details{
-Using the output of \code{pca_mip_data} and a specified variable
-  within the mip data set, e.g the country of sample collection, a
-  scatterplot of the data is produced. Either the first 2 or 3 components
-  can be used, as specified with `num_components`. The chosen `meta_var`
-  must be a variable found within the mip data set (this is included as
-  the last element in the object returned by \code{pca_mip_data}).
+  data points labelled accordng to chosen meta data.
 }
 \examples{
+\dontrun{
 dat <- dummy_data()
 dat <- filter_misc(dat = dat)
 dat <- filter_coverage(dat = dat, min_coverage = 2)
@@ -35,4 +28,5 @@ dat <- impute_mip_data(dat = dat)
 pca <- pca_mip_data(dat = dat)
 plot_pca(pca, num_components = 2, meta_var = "Country")
 plot_pca(pca, num_components = 3, meta_var = "Study")
+}
 }

@@ -2,18 +2,15 @@
 % Please edit documentation in R/misc.R
 \name{fast_read}
 \alias{fast_read}
-\title{Quickly load data as data.frame}
+\title{Quickly load data as dataframe}
 \usage{
 fast_read(file)
 }
 \arguments{
-\item{file}{String to the path where your mip dataset is saved}
+\item{file}{path to where your data is saved}
 }
 \description{
-Quickly load data as data.frame
-}
-\details{
-TODO
+Quickly load data as a dataframe.
 }
 \examples{
 \dontrun{

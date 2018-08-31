@@ -2,28 +2,37 @@
 % Please edit documentation in R/main.R
 \name{filter_coverage}
 \alias{filter_coverage}
-\title{Filter data}
+\title{Filter data based on coverage}
 \usage{
-filter_coverage(dat, min_coverage = 2)
+filter_coverage(project, filter_interactive = TRUE, min_coverage = 2,
+  max_proportion_missing_locus = 0.5, max_proportion_missing_sample = 0.5)
 }
 \arguments{
-\item{dat}{MIP data. The data must have the following variables:
-\itemize{
-    \item Coverage : The total read coverage as numerics
-    }}
+\item{project}{a \code{mipmapper_project} with data already loaded}
 
-\item{min_coverage}{Numeric for the minimum required coverage. Default = 2}
+\item{filter_interactive}{whether to carry out plotting and data filtering
+interactively}
+
+\item{min_coverage}{minimum required coverage of any genotype call. All calls
+with coverage less than this level are re-coded as missing data. Only 
+applies if \code{filter_interactive} is \code{FALSE}, otherwise chosen 
+interactively}
+
+\item{max_proportion_missing_locus}{maximum proportion of genotype calls over
+all samples at a given locus that are allowed to be missing (see 
+\code{min_coverage} argument above). Only applies if
+\code{filter_interactive} is \code{TRUE}, otherwise chosen interactively}
+
+\item{max_proportion_missing_sample}{maximum proportion of genotype calls
+over all loci for a given sample that are allowed to be missing (see 
+\code{min_coverage} argument above). Only applies if 
+\code{filter_interactive} is \code{TRUE}, otherwise chosen interactively}
 }
 \description{
-Filter data based on coverage
-}
-\details{
-The MIP dataset is filtered to remove all loci that have less than 
-  the minimum required coverage.
-}
-\examples{
-dat <- dummy_data()
-dat <- filter_misc(dat)
-dat2 <- filter_coverage(dat, min_coverage = 5)
-dim(dat2)[1] < dim(dat)[1]
+Filter data based on coverage. First, a minimum coverage level 
+  is chosen and all genotype calls below this level are re-coded as missing 
+  data. Second, loci are filtered based on the allowed proportion of missing 
+  data. Third, samples are filtered in an analogous fashion. By default this
+  is carried out interactively, although filters can be also be specified as
+  fixed arguments.
 }

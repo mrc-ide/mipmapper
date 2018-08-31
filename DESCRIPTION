@@ -17,6 +17,8 @@ License: MIT + file LICENSE
 Encoding: UTF-8
 LazyData: TRUE
 Imports:
+    ggplot2,
+    gridExtra,
     data.table,
     dplyr,
     plotly,
