@@ -13,5 +13,5 @@ mipmapper_file(name)
 Load system file
 }
 \details{
-Load a file from within the mipmapper package.
+Load a file from within the mipmapper package. Must be one of .csv, .txt, or .rds.
 }

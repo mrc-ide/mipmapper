@@ -3,8 +3,9 @@
 # The following commands ensure that package dependencies are listed in the
 # NAMESPACE file.
 
+#' @import sp
 #' @importFrom raster raster plot
-#' @importFrom viridis plasma
+#' @importFrom viridis viridis plasma
 #' @importFrom dplyr group_by summarize
 #' @importFrom data.table rbindlist fread
 #' @importFrom plotly plot_ly layout
@@ -12,6 +13,8 @@
 #' @importFrom graphics plot abline hist par
 #' @importFrom grDevices colorRampPalette grey
 #' @importFrom stats prcomp runif
+#' @useDynLib mipmapper, .registration = TRUE
+#' @importFrom Rcpp sourceCpp
 NULL
 
 #------------------------------------------------
@@ -109,7 +112,7 @@ bind_data <- function(project,
                            data_locus = data_locus)
   
   project$data_processed <- project$data_raw
-  project$data_processed$WSAF <- data_counts / data_coverage
+  project$data_processed$data_WSAF <- data_counts / data_coverage
   
   cat("data loaded\n")
   
@@ -444,7 +447,7 @@ filter_coverage <- function(project,
   project$data_processed$data_locus <- data_locus
   
   # recalculate WSAF
-  project$data_processed$WSAF <- data_counts / data_coverage
+  project$data_processed$data_WSAF <- data_counts / data_coverage
   
   # return invisibly
   invisible(project)

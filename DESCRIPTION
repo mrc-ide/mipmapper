@@ -16,16 +16,22 @@ Description: Molecular inversion probes (MIPs) are a tool for genomic
 License: MIT + file LICENSE
 Encoding: UTF-8
 LazyData: TRUE
-Imports:
+Imports: 
     raster,
     data.table,
     dplyr,
     plotly,
     RColorBrewer,
-    viridis
+    viridis,
+    sp,
+    Rcpp
 RoxygenNote: 6.0.1
 Suggests:
     covr,
     knitr,
     testthat
 VignetteBuilder: knitr
+LinkingTo: 
+    Rcpp
+SystemRequirements:
+    C++11

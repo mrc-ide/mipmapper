@@ -55,7 +55,7 @@ pca_mip_data <- function(project, plot_on = TRUE) {
   assert_single_logical(plot_on)
   
   # impute missing values
-  WSAF <- impute(project$data_processed$WSAF, MARGIN = 2, FUN = mean)
+  WSAF <- impute(project$data_processed$data_WSAF, MARGIN = 2, FUN = mean)
   
   # compute PCA
   pca <- prcomp(WSAF)
@@ -71,4 +71,84 @@ pca_mip_data <- function(project, plot_on = TRUE) {
   project$analyses$pca <- pca
   
   return(project)
+}
+
+#------------------------------------------------
+#' @title Estimate pairwise inbreeding coefficient F by maximum likelihood
+#'
+#' @description The probability of seeing the same or different alleles at a 
+#'   locus can be written in terms of the global allele frequency p and the 
+#'   inbreeding coefficient f. For example, the probability of seeing the same 
+#'   REF allele is \code{(1-f)*p^2 + f*p}. This formula can be multiplied over 
+#'   all loci to arrive at the overall likelihood of each value of f, which can 
+#'   then be chosen by maximum likelihood. This function carries out this
+#'   comparison between all pairwise samples, passed in as a matrix.
+#'
+#' @param x a matrix with samples in rows and loci in columns. The value in each
+#'   cell should be 1, 0, NA for missing data
+#' @param f_breaks the number of values of f that are explored, distributed
+#'   evenly in the [0,1] interval
+#' @param report_progress this analysis can take a long time for large datasets,
+#'   therefore this option prints running progress to the console
+#'
+#' @export
+
+estimate_f <- function(x, f_breaks = 11, report_progress = FALSE) {
+  
+  # check inputs
+  assert_matrix(x)
+  assert_in(as.vector(x), c(0,1,NA,NaN))
+  assert_single_pos_int(f_breaks, zero_allowed = FALSE)
+  assert_single_logical(report_progress)
+  
+  # get global allele frequencies
+  p <- colMeans(x, na.rm = TRUE)
+  
+  # convert NA to -1 before passing to C++
+  x[is.na(x)] <- -1
+  
+  # run efficient C++ function
+  args <- list(x = mat_to_rcpp(x), f_breaks = f_breaks, p = p, report_progress = report_progress)
+  output_raw <- estimate_f_cpp(args)
+  
+  # process output
+  ret <- rcpp_to_mat(output_raw$ret)
+  diag(ret) <- 1
+  
+  return(ret)
+}
+
+#------------------------------------------------
+#' @title Calculate proportion identical by state (IBS)
+#'
+#' @description Calculate the proportion of identity by state (IBS) between all
+#'   pairwise samples. IBS is calculated as the proportion of sites that are
+#'   identical.
+#'
+#' @param x a matrix with samples in rows and loci in columns. The value in each
+#'   cell should be 1, 0, NA for missing data
+#' @param report_progress this analysis can take a long time for large datasets,
+#'   therefore this option prints running progress to the console
+#'
+#' @export
+
+calculate_IBS <- function(x, report_progress = FALSE) {
+  
+  # check inputs
+  assert_matrix(x)
+  assert_in(as.vector(x), c(0,1,NA,NaN))
+  assert_single_logical(report_progress)
+  
+  # convert NA to -1 before passing to C++
+  x[is.na(x)] <- -1
+  
+  # run efficient C++ function
+  args <- list(x = mat_to_rcpp(x), report_progress = report_progress)
+  output_raw <- calculate_IBS_cpp(args)
+  
+  # process output
+  ret <- rcpp_to_mat(output_raw$ret)
+  diag(ret) <- 1
+  
+  return(ret)
 }

@@ -4,7 +4,7 @@
 \alias{summary.mipmapper_project}
 \title{Print summary for class mipmapper_project}
 \usage{
-\method{summary}{mipmapper_project}(object, ...)
+summary.mipmapper_project(object, ...)
 }
 \arguments{
 \item{object}{object of class \code{mipmapper_project}}
