@@ -5,7 +5,7 @@
 \title{Plot points on map of DRC}
 \usage{
 plot_DRC(longitude = NULL, latitude = NULL, v = NULL,
-  longitude_limits = c(12, 33), latitude_limits = c(-15, 7), vmin = min(v,
+  longitude_limits = c(10, 40), latitude_limits = c(-15, 7), vmin = min(v,
   na.rm = TRUE), vmax = max(v, na.rm = TRUE), plot_water = TRUE,
   raw_cols = viridis(100))
 }

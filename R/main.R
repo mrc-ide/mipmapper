@@ -3,16 +3,16 @@
 # The following commands ensure that package dependencies are listed in the
 # NAMESPACE file.
 
-#' @import sp
 #' @importFrom raster raster plot
 #' @importFrom viridis viridis plasma
 #' @importFrom dplyr group_by summarize
 #' @importFrom data.table rbindlist fread
+#' @importFrom ggplot2 ggplot aes_ geom_point geom_rect geom_segment theme element_blank scale_y_continuous xlab ylab guides guide_legend
 #' @importFrom plotly plot_ly layout
 #' @importFrom RColorBrewer brewer.pal
-#' @importFrom graphics plot abline hist par
+#' @importFrom graphics plot points abline hist par
 #' @importFrom grDevices colorRampPalette grey
-#' @importFrom stats prcomp runif
+#' @importFrom stats prcomp runif setNames
 #' @useDynLib mipmapper, .registration = TRUE
 #' @importFrom Rcpp sourceCpp
 NULL

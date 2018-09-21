@@ -220,8 +220,6 @@ plot_pca_loadings <- function(project, component = 1, colour = NULL, plot_resist
   # create basic empty plot
   plot_load <- ggplot()
   plot_load <- plot_load + theme(axis.text.x = element_blank(),
-                                 #axis.title.y  = element_blank(),
-                                 #axis.title.x  = element_blank(),
                                  panel.background = element_blank(),
                                  panel.grid.major = element_blank(), 
                                  panel.grid.minor = element_blank())
@@ -229,13 +227,13 @@ plot_pca_loadings <- function(project, component = 1, colour = NULL, plot_resist
   plot_load <- plot_load + xlab("position") + ylab("chromosome")
   
   # add grey rect for each chromosome
-  plot_load <- plot_load  + geom_rect(aes(xmin = 0, xmax = Chrom_length, ymin = 15-Chrom, ymax = 15-Chrom + 0.95), fill = grey(0.97), colour = grey(0.5), size = 0.2, data = df)
+  plot_load <- plot_load  + geom_rect(aes_(xmin = 0, xmax = ~Chrom_length, ymin = ~(15-Chrom), ymax = ~(15-Chrom + 0.95)), fill = grey(0.97), colour = grey(0.5), size = 0.2, data = df)
   
   # add loci
   if (is.null(colour)) {
-    plot_load <- plot_load  + geom_segment(aes(x = Pos, xend = Pos, y = 15-Chrom, yend = 15-Chrom + 0.95*Loading), data = df)
+    plot_load <- plot_load  + geom_segment(aes_(x = ~Pos, xend = ~Pos, y = ~(15-Chrom), yend = ~(15-Chrom + 0.95*Loading)), data = df)
   } else {
-    plot_load <- plot_load  + geom_segment(aes(x = Pos, xend = Pos, y = 15-Chrom, yend = 15-Chrom + 0.95*Loading, colour = Colour), data = df)
+    plot_load <- plot_load  + geom_segment(aes_(x = ~Pos, xend = ~Pos, y = ~(15-Chrom), yend = ~(15-Chrom + 0.95*Loading), colour = ~Colour), data = df)
     plot_load <- plot_load + guides(colour = guide_legend(title = colour))
   }
   
@@ -246,7 +244,7 @@ plot_pca_loadings <- function(project, component = 1, colour = NULL, plot_resist
     df_resistance <- data.frame(Name = c("kelch K13", "pfcrt", "pfmdr1", "pfmdr2", "pfmrp1", "pfdhps", "pfdhfr", "pfaat1"), Chrom = c(13, 7, 5, 14, 1, 8, 4, 6), Pos = c(1724817, 403222, 957890, 1954601, 464726, 548200, 748088, 1214976))
     
     # add to plot
-    plot_load <- plot_load  + geom_point(aes(x = Pos, y = 15-Chrom + 0.5, text = Name), size = 0.5, data = df_resistance)
+    plot_load <- plot_load  + geom_point(aes_(x = ~Pos, y = ~(15-Chrom + 0.5), text = ~Name), size = 0.5, data = df_resistance)
   }
   
   # plot using plotly
