@@ -44,6 +44,16 @@ mipmapper_file <- function(name) {
 }
 
 #------------------------------------------------
+# replace NULL value with default
+#' @noRd
+define_default <- function(x, default_value) {
+  if (is.null(x)) {
+    x <- default_value
+  }
+  return(x)
+}
+
+#------------------------------------------------
 #' @title Quickly load data as dataframe
 #'
 #' @description Quickly load data as a dataframe.

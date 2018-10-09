@@ -17,7 +17,7 @@ Rcpp::List estimate_f_cpp(Rcpp::List args) {
   bool report_progress = rcpp_to_bool(args["report_progress"]);
   int f_breaks = rcpp_to_int(args["f_breaks"]);
   
-  // get/set dimensions
+  // get dimensions
   int n = x.size();
   int L = x[0].size();
   

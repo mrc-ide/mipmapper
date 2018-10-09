@@ -4,17 +4,20 @@
 \alias{estimate_f}
 \title{Estimate pairwise inbreeding coefficient F by maximum likelihood}
 \usage{
-estimate_f(x, f_breaks = 11, report_progress = FALSE)
+estimate_f(project, samples = NULL, f_breaks = 11,
+  report_progress = FALSE)
 }
 \arguments{
-\item{x}{a matrix with samples in rows and loci in columns. The value in each
-cell should be 1, 0, NA for missing data}
+\item{project}{a \code{mipmapper_project} with data already loaded}
 
 \item{f_breaks}{the number of values of f that are explored, distributed
 evenly in the [0,1] interval}
 
 \item{report_progress}{this analysis can take a long time for large datasets,
 therefore this option prints running progress to the console}
+
+\item{x}{a matrix with samples in rows and loci in columns. The value in each
+cell should be 1 or 0, or \code{NA} for missing data}
 }
 \description{
 The probability of seeing the same or different alleles at a 

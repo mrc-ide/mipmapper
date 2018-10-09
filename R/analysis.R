@@ -36,19 +36,17 @@ impute <- function(dat, MARGIN = 2, FUN = mean, ...) {
 }
 
 #------------------------------------------------
-#' @title PCA of MIP Data
+#' @title Perform PCA analysis
 #'
-#' @description Using the output of \code{impute_mip_data}, principal component
-#'   analysis will be condcuted and the resultant components returned, along
-#'   with the variance explained by each component and the loadings of each
-#'   component.
+#' @description Principal component analysis will be condcuted and the resultant
+#'   components returned, along with the variance explained by each component
+#'   and the loadings of each component.
 #'
 #' @param project a \code{mipmapper_project} with data already loaded
-#' @param plot_on whether to plot PCA results
 #'
 #' @export
 
-pca_mip_data <- function(project, plot_on = TRUE) {
+perform_pca <- function(project) {
   
   # check inputs
   assert_custom_class(project, "mipmapper_project")
@@ -84,8 +82,9 @@ pca_mip_data <- function(project, plot_on = TRUE) {
 #'   then be chosen by maximum likelihood. This function carries out this
 #'   comparison between all pairwise samples, passed in as a matrix.
 #'
+#' @param project a \code{mipmapper_project} with data already loaded
 #' @param x a matrix with samples in rows and loci in columns. The value in each
-#'   cell should be 1, 0, NA for missing data
+#'   cell should be 1 or 0, or \code{NA} for missing data
 #' @param f_breaks the number of values of f that are explored, distributed
 #'   evenly in the [0,1] interval
 #' @param report_progress this analysis can take a long time for large datasets,
@@ -93,22 +92,28 @@ pca_mip_data <- function(project, plot_on = TRUE) {
 #'
 #' @export
 
-estimate_f <- function(x, f_breaks = 11, report_progress = FALSE) {
+estimate_f <- function(project, samples = NULL, f_breaks = 11, report_progress = FALSE) {
   
   # check inputs
-  assert_matrix(x)
-  assert_in(as.vector(x), c(0,1,NA,NaN))
+  assert_custom_class(project, "mipmapper_project")
+  samples <- define_default(samples, 1:nrow(project$data_processed$data_sample))
+  assert_pos_int(samples, zero_allowed = FALSE)
+  assert_noduplicates(samples)
+  assert_leq(max(samples), nrow(project$data_processed$data_sample))
   assert_single_pos_int(f_breaks, zero_allowed = FALSE)
   assert_single_logical(report_progress)
   
+  # call major allele at each locus
+  WSAF_major <- round(project$data_processed$data_WSAF[samples,])
+  
   # get global allele frequencies
-  p <- colMeans(x, na.rm = TRUE)
+  p <- colMeans(WSAF_major, na.rm = TRUE)
   
   # convert NA to -1 before passing to C++
-  x[is.na(x)] <- -1
+  WSAF_major[is.na(WSAF_major)] <- -1
   
   # run efficient C++ function
-  args <- list(x = mat_to_rcpp(x), f_breaks = f_breaks, p = p, report_progress = report_progress)
+  args <- list(x = mat_to_rcpp(WSAF_major), f_breaks = f_breaks, p = p, report_progress = report_progress)
   output_raw <- estimate_f_cpp(args)
   
   # process output
